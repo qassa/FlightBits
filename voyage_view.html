@@ -1,0 +1,121 @@
+<head>
+    <meta charset="utf-8">
+    <link href="avia_style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id=views_container>
+        <div class="view_slice">
+            Авиатехника
+        </div>
+        <div id="view_space"></div>
+        <div class="view_slice">Рейсы</div>
+        <div id="view_space"></div>
+        <div class="view_slice">Персонал</div>
+        <div id="view_space"></div>
+        <div class="view_slice">Пассажиры</div>
+        <div id="view_space"></div>
+        <div class="view_slice">График полетов</div>
+
+    </div>
+
+    <div id="screen_lists">
+        <div class="list_selective">Последние экраны
+            <div>
+                <select name="recent_screens">
+                                <option value="">Карточка рейса</option>
+                                <option value="">Авиатехника</option>
+                                <option value="">Рейсы</option>
+                                <option value="">График полетов</option>
+                                <option value="">Пассажиры</option>
+                    </select>
+            </div>
+        </div>
+        <div class="list_selective">Часто используемые
+            <div>
+                <select name="frequent_screens">
+                                    <option value="">График полетов</option>
+                                    <option value="">Пассажиры</option>
+                    </select>
+            </div>
+        </div>
+        <div class="list_selective">Избранные экраны
+            <div>
+                <select name="favourite_screens">
+                                    <option value="">Авиатехника</option>
+                                    <option value="">Рейсы</option>
+                                    <option value="">График полетов</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="inform_screen">
+        <div id="main_container">
+            <div class="toolbox">
+                <div class="helper"><img src="resource/helper.jpg"></div>
+                <div class="minimize"></div>
+                <div class="left_attr"></div>
+                <div class="right_attr"></div>
+            </div>
+
+
+            <div id="data_field" col_id="1" class="number_voyage">№ рейса</div>
+            <div id="data_field" col_id="2" class="name_voyage">Тип воздушного судна</div>
+            <div id="data_field" col_id="3" class="number_voyage">№ воздушного судна</div>
+            <div id="data_field" col_id="4" class="compact_voyage">Компоновка (предельная загрузка)</div>
+            <div id="data_field" col_id="5" class="side_voyage">Принадлежность ВС</div>
+            <div id="data_field" col_id="6" class="commander_voyage">Фамилия командира ВС</div>
+            <div id="data_field" col_id="7" class="route_voyage">Маршрут</div>
+            <div id="data_field" col_id="8" class="plantime_voyage">Плановое время</div>
+            <div id="data_field" col_id="9" class="facttime_voyage">Фактичесок время прибытия</div>
+            <div id="data_field" col_id="10" class="starttime_voyage">Отправление по расписанию</div>
+            <div id="data_field" col_id="11" class="side_voyage">Фактическое время взлета</div>
+            <div id="data_field" col_id="12" class="reason_voyage">Причина задержки</div>
+            <div id="new_line"></div>
+
+            <!-- первая строка данных об авиатехнике -->
+            <div id="data_field" col_id="1">32</div>
+            <div id="data_field" col_id="2">BlindJet 543</div>
+            <div id="data_field" col_id="3"><img src="resource/fly_boeing.jpg"></div>
+            <div id="data_field" col_id="4">Заправлен</div>
+            <div id="data_field" col_id="5">K-546-32</div>
+            <div id="new_line"></div>
+
+            <div id="data_field" col_id="1">54</div>
+            <div id="data_field" col_id="2">Boeing 773</div>
+            <div id="data_field" col_id="3"><img src="resource/fly_boeing1.jpg"></div>
+            <div id="data_field" col_id="4">Заправлен</div>
+            <div id="data_field" col_id="5">N-5ZZ6-742</div>
+            <div id="new_line"></div>
+
+            <div id="data_field" col_id="1">42</div>
+            <div id="data_field" col_id="2">CRJ 200</div>
+            <div id="data_field" col_id="3"><img src="resource/fly_crj.jpg"></div>
+            <div id="data_field" col_id="4">Заправлен</div>
+            <div id="data_field" col_id="5">AB-32</div>
+            <div id="new_line"></div>
+        </div>
+        <div id="detail_container">
+            <div class="toolbox">
+                <div class="helper"></div>
+                <div class="minimize"></div>
+            </div>
+
+            <div id="data_field" class="preview"><img src="resource/null.jpg"></div>
+        </div>
+        <div id="edit_container">
+            <!--область фильтра значений таблицы-->
+            <select name="field_filter">
+                    <option value="number_filter">№ авиатехники</option>
+                    <option value="name_filter">Наименование авиатехники</option>
+                    <option value="preview_filter">Превью</option>
+                    <option value="techstate_filter">Техническое состояние</option>
+                    <option value="staff_filter">Экипаж</option>
+                </select>
+            <button name="apply_filter">Применить</button>
+            <button name="reset_filter">Сбросить</button>
+        </div>
+    </div>
+    <script src="js/resizable.js"></script>
+</body>

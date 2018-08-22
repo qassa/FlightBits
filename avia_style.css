@@ -14,49 +14,114 @@
 
 #inform_screen {
     float: left;
-    margin-top: 40px;
+    margin-top: 15px;
     width: 100%;
 }
 
+#screen_lists {
+    padding: 7px;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid lightblue;
+}
+
+.list_selective {
+    display: inline-block;
+    min-width: 200px;
+    margin-left: 30px;
+}
+
 #main_container {
-    float: left;
     min-height: 500px;
+}
+
+#main_container {
+    display: inline;
+    float: left;
     background-color: aliceblue;
     width: 70%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    max-width: 933px;
+}
+
+#edit_container {
+    padding: 15px 0px;
+    display: inline-block;
+    background-color: aliceblue;
+    white-space: nowrap;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+#records_stats {
+    margin-left: 37%;
+    padding: 20px;
 }
 
 #detail_container {
+    display: inline;
     float: left;
     min-height: 500px;
     background-color: lightgrey;
     width: 30%;
 }
 
-.number_avia,
-.name_avia,
-.preview_avia,
-.techstate_avia,
-.staff_avia {
+#data_field {
     vertical-align: top;
     display: inline-block;
-    width: 150px;
     border: 1px solid lightslategray;
-    height: 35px;
+    min-height: 35px;
+    width: 170px;
     overflow: hidden;
     white-space: nowrap;
 }
 
-#data_field .resizable {
-    background: cyan;
-    position: relative;
+#data_field img {
+    max-width: 33px;
+    max-height: 33px;
 }
 
-#data_field .resizer {
-    width: 10px;
-    height: 10px;
-    background: blue;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    cursor: se-resize;
+.toolbox {
+    display: block;
+}
+
+.helper,
+.minimize,
+.left_attr,
+.right_attr {
+    display: inline-block;
+    border: 1px solid lightslategray;
+}
+
+.toolbox {
+    ...
+}
+
+img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.preview {
+    margin: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+#data_field img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid lightgray;
+}
+
+#edit_avia {
+    margin: 25px 0px;
+    background-color: aliceblue;
+}
+
+.edit_field {
+    margin: 0px 25px;
+    display: inline-block;
+    min-width: 200px;
 }
