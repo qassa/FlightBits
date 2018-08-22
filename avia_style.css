@@ -1,0 +1,62 @@
+.view_slice {
+    float: left;
+    padding: 15px;
+    font-size: 20px;
+    background-color: lightskyblue;
+}
+
+#view_space {
+    float: left;
+    padding: 30px;
+    height: auto;
+    width: auto;
+}
+
+#inform_screen {
+    float: left;
+    margin-top: 40px;
+    width: 100%;
+}
+
+#main_container {
+    float: left;
+    min-height: 500px;
+    background-color: aliceblue;
+    width: 70%;
+}
+
+#detail_container {
+    float: left;
+    min-height: 500px;
+    background-color: lightgrey;
+    width: 30%;
+}
+
+.number_avia,
+.name_avia,
+.preview_avia,
+.techstate_avia,
+.staff_avia {
+    vertical-align: top;
+    display: inline-block;
+    width: 150px;
+    border: 1px solid lightslategray;
+    height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#data_field .resizable {
+    background: cyan;
+    position: relative;
+}
+
+#data_field .resizer {
+    width: 10px;
+    height: 10px;
+    background: blue;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
