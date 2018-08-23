@@ -4,12 +4,71 @@
 </head>
 
 <body>
+    <div id="modal_text">
+        <!--область, в которой можно провести изменение значения любого из полей для воздушного судна-->
+        <div id="edit_avia">
+            <div id="close_modal">
+                <img src="resource/close_modal.png">
+            </div>
+            <div class="edit_field">
+                №<br><input type="text" name="number_edit" value="">
+            </div>
+            <div class="edit_field">
+                Тип воздушного судна<br><input type="text" name="name_edit" value="">
+            </div>
+            <div class="edit_field">
+                Превью<br><input type="button" name="preview_edit" value="Выбрать файл...">
+            </div>
+            <div id="new_line"></div>
+            <div class="edit_field">
+                Техническое состояние<br><input type="text" name="techstate_edit" value="">
+            </div>
+            <div class="edit_field">
+                Экипаж на борту<br><input type="text" name="staff_edit" value="">
+            </div>
+            <div class="edit_field">
+                Мест в первом классе<br><input type="text" name="first_edit" value="">
+            </div>
+            <div id="new_line"></div>
+            <div class="edit_field">
+                Мест в бизнес-классе<br><input type="text" name="business_edit" value="">
+            </div>
+            <div class="edit_field">
+                Мест в эконом-классе<br><input type="text" name="econom_edit" value="">
+            </div>
+            <div class="edit_field">
+                Крейсерская скорость<br><input type="text" name="creiser_edit" value="">
+            </div>
+            <div id="new_line"></div>
+            <div class="edit_field">
+                Макс. взлетная масса<br><input type="text" name="max_mass_edit" value="">
+            </div>
+            <div class="edit_field">
+                Макс. высота полета<br><input type="text" name="msx_height_edit" value="">
+            </div>
+            <div class="edit_field">
+                Дальность полета<br><input type="text" name="distance_edit" value="">
+            </div>
+            <div id="new_line"></div>
+            <div class="edit_field">
+                Грузоподъемность<br><input type="text" name="carrying_edit" value="">
+            </div>
+            <div id="new_line"></div>
+            <input type="button" class="edit_button" value="Сохранить">
+        </div>
+    </div>
+
+    <div id="fon"></div>
+
+    </div>
     <div id=views_container>
         <div class="view_slice">
-            Авиатехника
+            <a href="plane_view.html">Авиатехника</a>
         </div>
         <div id="view_space"></div>
-        <div class="view_slice">Рейсы</div>
+        <div class="view_slice">
+            <a href="voyage_view.html">Рейсы</a>
+        </div>
         <div id="view_space"></div>
         <div class="view_slice">Персонал</div>
         <div id="view_space"></div>
@@ -19,103 +78,110 @@
 
     </div>
 
-    <div id="screen_lists">
-        <div class="list_selective">Последние экраны
-            <div>
-                <select name="recent_screens">
-                                <option value="">Карточка рейса</option>
-                                <option value="">Авиатехника</option>
-                                <option value="">Рейсы</option>
-                                <option value="">График полетов</option>
-                                <option value="">Пассажиры</option>
-                    </select>
-            </div>
-        </div>
-        <div class="list_selective">Часто используемые
-            <div>
-                <select name="frequent_screens">
-                                    <option value="">График полетов</option>
-                                    <option value="">Пассажиры</option>
-                    </select>
-            </div>
-        </div>
-        <div class="list_selective">Избранные экраны
-            <div>
-                <select name="favourite_screens">
-                                    <option value="">Авиатехника</option>
-                                    <option value="">Рейсы</option>
-                                    <option value="">График полетов</option>
-                    </select>
-            </div>
-        </div>
-    </div>
-
     <div id="inform_screen">
-        <div id="main_container">
-            <div class="toolbox">
-                <div class="helper"><img src="resource/helper.jpg"></div>
-                <div class="minimize"></div>
-                <div class="left_attr"></div>
-                <div class="right_attr"></div>
-            </div>
 
-
-            <div id="data_field" col_id="1" class="number_voyage">№ рейса</div>
-            <div id="data_field" col_id="2" class="name_voyage">Тип воздушного судна</div>
-            <div id="data_field" col_id="3" class="number_voyage">№ воздушного судна</div>
-            <div id="data_field" col_id="4" class="compact_voyage">Компоновка (предельная загрузка)</div>
-            <div id="data_field" col_id="5" class="side_voyage">Принадлежность ВС</div>
-            <div id="data_field" col_id="6" class="commander_voyage">Фамилия командира ВС</div>
-            <div id="data_field" col_id="7" class="route_voyage">Маршрут</div>
-            <div id="data_field" col_id="8" class="plantime_voyage">Плановое время</div>
-            <div id="data_field" col_id="9" class="facttime_voyage">Фактичесок время прибытия</div>
-            <div id="data_field" col_id="10" class="starttime_voyage">Отправление по расписанию</div>
-            <div id="data_field" col_id="11" class="side_voyage">Фактическое время взлета</div>
-            <div id="data_field" col_id="12" class="reason_voyage">Причина задержки</div>
-            <div id="new_line"></div>
-
-            <!-- первая строка данных об авиатехнике -->
-            <div id="data_field" col_id="1">32</div>
-            <div id="data_field" col_id="2">BlindJet 543</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_boeing.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">K-546-32</div>
-            <div id="new_line"></div>
-
-            <div id="data_field" col_id="1">54</div>
-            <div id="data_field" col_id="2">Boeing 773</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_boeing1.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">N-5ZZ6-742</div>
-            <div id="new_line"></div>
-
-            <div id="data_field" col_id="1">42</div>
-            <div id="data_field" col_id="2">CRJ 200</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_crj.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">AB-32</div>
-            <div id="new_line"></div>
-        </div>
-        <div id="detail_container">
-            <div class="toolbox">
-                <div class="helper"></div>
-                <div class="minimize"></div>
-            </div>
-
-            <div id="data_field" class="preview"><img src="resource/null.jpg"></div>
-        </div>
-        <div id="edit_container">
+        <div id="filter_container">
             <!--область фильтра значений таблицы-->
             <select name="field_filter">
-                    <option value="number_filter">№ авиатехники</option>
-                    <option value="name_filter">Наименование авиатехники</option>
-                    <option value="preview_filter">Превью</option>
-                    <option value="techstate_filter">Техническое состояние</option>
-                    <option value="staff_filter">Экипаж</option>
-                </select>
+                            <option value="number_filter">№ авиатехники</option>
+                            <option value="name_filter">Тип воздушного судна</option>
+                            <option value="preview_filter">Превью</option>
+                            <option value="techstate_filter">Техническое состояние</option>
+                            <option value="staff_filter">Экипаж на борту</option>
+                        </select>
+            <select name="condition_filter">
+                            <option value="contains">Условие для текстовых данных</option>
+                        </select>
+            <input type="text" name="value_of_filter" value="Значение фильтра">
             <button name="apply_filter">Применить</button>
             <button name="reset_filter">Сбросить</button>
         </div>
+
+        <div id="main_container">
+            <div id="screen_header">Рейсы</div>
+            <div class="toolbox">
+                <div class="add icon"><img src="resource/add.png"></div>
+                <div class="edit icon"><img src="resource/edit.png"></div>
+                <div class="remove icon"><img src="resource/remove.png"></div>
+                <div class="helper icon"><img src="resource/helper.jpg"></div>
+                <div class="minimize icon"></div>
+                <div class="left_attr icon"></div>
+                <div class="right_attr icon"></div>
+            </div>
+
+            <table id=records_table>
+                <tr>
+                    <th>№ рейса</th>
+                    <th>Тип воздушного судна</th>
+                    <th>№ воздушного судна</th>
+                    <th>Компоновка (предельная загрузка)</th>
+                    <th>Принадлежность ВС</th>
+                    <th>Фамилия командира ВС</th>
+                    <th>Маршрут</th>
+                    <th>Плановое время прибытия</th>
+                    <th>Фактическое время прибытия</th>
+                    <th>Время отправления по расписанию</th>
+                    <th>Фактическое время взлета</th>
+                    <th>Причина задержки</th>
+                </tr>
+                <tr>
+                    <!-- первая строка данных об авиатехнике -->
+                    <td>32</td>
+                    <td>BlindJet 543</td>
+                    <td><img src="resource/fly_boeing.jpg"></td>
+                    <td>A-check 23.08.18</td>
+                    <td>K-546-32</td>
+                </tr>
+                <tr>
+                    <td>54</td>
+                    <td>Boeing 773</td>
+                    <td><img src="resource/fly_boeing1.jpg"></td>
+                    <td>C-check 21.08.18</td>
+                    <td>N-5ZZ6-742</td>
+                </tr>
+                <tr>
+                    <td>42</td>
+                    <td>CRJ 200</td>
+                    <td><img src="resource/fly_crj.jpg"></td>
+                    <td>A-check 22.08.18</td>
+                    <td>AB-32</td>
+                </tr>
+                <tr>
+                    <td>43</td>
+                    <td>Saab 340</td>
+                    <td><img src="resource/saab340.jpg"></td>
+                    <td>A-check 20.08.18</td>
+                    <td>ST-504</td>
+                </tr>
+            </table>
+        </div>
+        <div id="detail_container">
+            <div class="toolbox">
+                <div class="helper icon"></div>
+                <div class="minimize icon"></div>
+            </div>
+
+
+            <div id="fields_container">
+                <div>№</div>
+                <!-- disabled="true" -->
+                <input type="text" id="stretch_text" value="">
+                <div>Тип воздушного судна</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Техническое состояние</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Экипаж на борту</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Мест в первом классе</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Мест в бизнес-классе</div>
+                <input type="text" id="stretch_text" value="">
+            </div>
+        </div>
+
+        <div id="records_stats">Отображено <input type="text" name="displayed" value="3" size="2"> записей из <input type="text" name="general" value="200" size="2"></div>
+
     </div>
     <script src="js/resizable.js"></script>
+    <script src="js/resizable_text.js"></script>
 </body>

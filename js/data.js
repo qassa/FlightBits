@@ -1,0 +1,2 @@
+//набор данных, описывающий одну единицу авиатехники
+var airplane_data = [{ id: "number", number: "number", type: "text", preview: "image", techstate: "text", staff: "text", firstClass: "number", businessClass: "number", economClass: "number", cruiserSpeed: "number", weightCapacity: "number", maxFlightHeight: "number", maxDistance: "number" }];

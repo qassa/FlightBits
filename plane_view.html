@@ -53,7 +53,8 @@
             <div class="edit_field">
                 Грузоподъемность<br><input type="text" name="carrying_edit" value="">
             </div>
-
+            <div id="new_line"></div>
+            <input type="button" class="edit_button" value="Сохранить">
         </div>
     </div>
 
@@ -62,10 +63,12 @@
     </div>
     <div id=views_container>
         <div class="view_slice">
-            Авиатехника
+            <a href="plane_view.html">Авиатехника</a>
         </div>
         <div id="view_space"></div>
-        <div class="view_slice">Рейсы</div>
+        <div class="view_slice">
+            <a href="voyage_view.html">Рейсы</a>
+        </div>
         <div id="view_space"></div>
         <div class="view_slice">Персонал</div>
         <div id="view_space"></div>
@@ -77,7 +80,7 @@
 
     <div id="inform_screen">
 
-        <div id="edit_container">
+        <div id="filter_container">
             <!--область фильтра значений таблицы-->
             <select name="field_filter">
                         <option value="number_filter">№ авиатехники</option>
@@ -90,11 +93,19 @@
                         <option value="contains">Условие для текстовых данных</option>
                     </select>
             <input type="text" name="value_of_filter" value="Значение фильтра">
+            <select name="bunch_filter">
+                <option value="10">Все</option>
+                <option value="10">10</option>
+                <option value="10">50</option>
+                <option value="10">100</option>
+                <option value="10">Другое</option>
+                </select>
             <button name="apply_filter">Применить</button>
             <button name="reset_filter">Сбросить</button>
         </div>
 
         <div id="main_container">
+            <div id="screen_header">Авиатехника</div>
             <div class="toolbox">
                 <div class="add icon"><img src="resource/add.png"></div>
                 <div class="edit icon"><img src="resource/edit.png"></div>
@@ -106,23 +117,26 @@
             </div>
 
             <table id=records_table>
+                <col width="10px">
                 <tr>
-                    <td>№</td>
-                    <td>Тип воздушного судна</td>
-                    <td>Превью</td>
-                    <td nowrap>Техническое состояние</td>
-                    <td>Экипаж на борту</td>
-                    <td>Мест в первом классе</td>
-                    <td>Мест в бизнес-классе</td>
-                    <td>Мест в эконом-классе</td>
-                    <td>Крейсерская скорость</td>
-                    <td>Макс. взлетная масса</td>
-                    <td>Макс. высота полета</td>
-                    <td>Дальность полета</td>
-                    <td>Грузоподъемность</td>
+                    <th><input type="checkbox" name="select_all"></th>
+                    <th>№</th>
+                    <th>Тип воздушного судна</th>
+                    <th>Превью</th>
+                    <th>Техническое состояние</th>
+                    <th>Экипаж на борту</th>
+                    <th>Мест в первом классе</th>
+                    <th>Мест в бизнес-классе</th>
+                    <th>Мест в эконом-классе</th>
+                    <th>Крейсерская скорость</th>
+                    <th>Макс. взлетная масса</th>
+                    <th>Макс. высота полета</th>
+                    <th>Дальность полета</th>
+                    <th>Грузоподъемность</th>
                 </tr>
                 <tr>
                     <!-- первая строка данных об авиатехнике -->
+                    <td><input type="checkbox" name="select_single"></td>
                     <td>32</td>
                     <td>BlindJet 543</td>
                     <td><img src="resource/fly_boeing.jpg"></td>
@@ -130,13 +144,15 @@
                     <td>K-546-32</td>
                 </tr>
                 <tr>
+                    <td><input type="checkbox" name="select_single"></td>
                     <td>54</td>
-                    <td>Bieing 773</td>
+                    <td>Boeing 773</td>
                     <td><img src="resource/fly_boeing1.jpg"></td>
                     <td>C-check 21.08.18</td>
                     <td>N-5ZZ6-742</td>
                 </tr>
                 <tr>
+                    <td><input type="checkbox" name="select_single"></td>
                     <td>42</td>
                     <td>CRJ 200</td>
                     <td><img src="resource/fly_crj.jpg"></td>
@@ -144,6 +160,7 @@
                     <td>AB-32</td>
                 </tr>
                 <tr>
+                    <td><input type="checkbox" name="select_single"></td>
                     <td>43</td>
                     <td>Saab 340</td>
                     <td><img src="resource/saab340.jpg"></td>
@@ -179,6 +196,8 @@
         <div id="records_stats">Отображено <input type="text" name="displayed" value="3" size="2"> записей из <input type="text" name="general" value="200" size="2"></div>
 
     </div>
+    <script src="js/data.js"></script>
     <script src="js/resizable.js"></script>
     <script src="js/resizable_text.js"></script>
+    <script src="js/modal_window.js"></script>
 </body>
