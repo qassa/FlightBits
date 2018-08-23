@@ -96,64 +96,89 @@
 
         <div id="main_container">
             <div class="toolbox">
-                <div class="add"><img src="resource/add.png"></div>
-                <div class="edit"><img src="resource/edit.png"></div>
-                <div class="remove"><img src="resource/remove.png"></div>
-                <div class="helper"><img src="resource/helper.jpg"></div>
-                <div class="minimize"></div>
-                <div class="left_attr"></div>
-                <div class="right_attr"></div>
+                <div class="add icon"><img src="resource/add.png"></div>
+                <div class="edit icon"><img src="resource/edit.png"></div>
+                <div class="remove icon"><img src="resource/remove.png"></div>
+                <div class="helper icon"><img src="resource/helper.jpg"></div>
+                <div class="minimize icon"></div>
+                <div class="left_attr icon"></div>
+                <div class="right_attr icon"></div>
             </div>
 
-
-            <div id="data_field" col_id="1" class="number_avia">№</div>
-            <div id="data_field" col_id="2" class="name_avia">Тип воздушного судна</div>
-            <div id="data_field" col_id="3" class="preview_avia">Превью</div>
-            <div id="data_field" col_id="4" class="techstate_avia">Техническое состояние</div>
-            <div id="data_field" col_id="5" class="staff_avia">Экипаж на борту</div>
-            <div id="data_field" col_id="6">Мест в первом классе</div>
-            <div id="data_field" col_id="7">Мест в бизнес-классе</div>
-            <div id="data_field" col_id="8">Мест в эконом-классе</div>
-            <div id="data_field" col_id="9">Крейсерская скорость</div>
-            <div id="data_field" col_id="10">Макс. взлетная масса</div>
-            <div id="data_field" col_id="11">Макс. высота полета</div>
-            <div id="data_field" col_id="12">Дальность полета</div>
-            <div id="data_field" col_id="13">Грузоподъемность</div>
-            <div id="new_line"></div>
-
-            <!-- первая строка данных об авиатехнике -->
-            <div id="data_field" col_id="1">32</div>
-            <div id="data_field" col_id="2">BlindJet 543</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_boeing.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">K-546-32</div>
-            <div id="new_line"></div>
-
-            <div id="data_field" col_id="1">54</div>
-            <div id="data_field" col_id="2">Boeing 773</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_boeing1.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">N-5ZZ6-742</div>
-            <div id="new_line"></div>
-
-            <div id="data_field" col_id="1">42</div>
-            <div id="data_field" col_id="2">CRJ 200</div>
-            <div id="data_field" col_id="3"><img src="resource/fly_crj.jpg"></div>
-            <div id="data_field" col_id="4">Заправлен</div>
-            <div id="data_field" col_id="5">AB-32</div>
-            <div id="new_line"></div>
+            <table id=records_table>
+                <tr>
+                    <td>№</td>
+                    <td>Тип воздушного судна</td>
+                    <td>Превью</td>
+                    <td nowrap>Техническое состояние</td>
+                    <td>Экипаж на борту</td>
+                    <td>Мест в первом классе</td>
+                    <td>Мест в бизнес-классе</td>
+                    <td>Мест в эконом-классе</td>
+                    <td>Крейсерская скорость</td>
+                    <td>Макс. взлетная масса</td>
+                    <td>Макс. высота полета</td>
+                    <td>Дальность полета</td>
+                    <td>Грузоподъемность</td>
+                </tr>
+                <tr>
+                    <!-- первая строка данных об авиатехнике -->
+                    <td>32</td>
+                    <td>BlindJet 543</td>
+                    <td><img src="resource/fly_boeing.jpg"></td>
+                    <td>A-check 23.08.18</td>
+                    <td>K-546-32</td>
+                </tr>
+                <tr>
+                    <td>54</td>
+                    <td>Bieing 773</td>
+                    <td><img src="resource/fly_boeing1.jpg"></td>
+                    <td>C-check 21.08.18</td>
+                    <td>N-5ZZ6-742</td>
+                </tr>
+                <tr>
+                    <td>42</td>
+                    <td>CRJ 200</td>
+                    <td><img src="resource/fly_crj.jpg"></td>
+                    <td>A-check 22.08.18</td>
+                    <td>AB-32</td>
+                </tr>
+                <tr>
+                    <td>43</td>
+                    <td>Saab 340</td>
+                    <td><img src="resource/saab340.jpg"></td>
+                    <td>A-check 20.08.18</td>
+                    <td>ST-504</td>
+                </tr>
+            </table>
         </div>
         <div id="detail_container">
             <div class="toolbox">
-                <div class="helper"></div>
-                <div class="minimize"></div>
+                <div class="helper icon"></div>
+                <div class="minimize icon"></div>
             </div>
 
-            <div id="data_field" class="preview"><img src="resource/null.jpg"></div>
+            <div class="preview"><img src="resource/fly_boeing.jpg"></div>
+            <div id="fields_container">
+                <div>№</div>
+                <!-- disabled="true" -->
+                <input type="text" id="stretch_text" value="">
+                <div>Тип воздушного судна</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Техническое состояние</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Экипаж на борту</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Мест в первом классе</div>
+                <input type="text" id="stretch_text" value="">
+                <div>Мест в бизнес-классе</div>
+                <input type="text" id="stretch_text" value="">
+            </div>
         </div>
 
         <div id="records_stats">Отображено <input type="text" name="displayed" value="3" size="2"> записей из <input type="text" name="general" value="200" size="2"></div>
 
     </div>
     <script src="js/resizable.js"></script>
+    <script src="js/resizable_text.js"></script>
 </body>

@@ -94,9 +94,9 @@ body {
     ...
 }
 
-img {
-    max-width: 20px;
-    max-height: 20px;
+.icon img {
+    max-width: 30px;
+    max-height: 30px;
 }
 
 .preview {
@@ -105,7 +105,7 @@ img {
     height: 150px;
 }
 
-#data_field img {
+.preview img {
     width: 150px;
     height: 150px;
     border: 1px solid lightgray;
@@ -144,4 +144,56 @@ img {
     max-width: 30px;
     max-height: 30px;
     position: relative;
+}
+
+table tr td {
+    vertical-align: top;
+    border: 1px solid lightslategray;
+    width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 35px;
+    max-height: 35px;
+}
+
+table tr td img {
+    max-width: 35px;
+    max-height: 35px;
+}
+
+#records_table {
+    table-layout: fixed;
+    width: 200%;
+}
+
+#fields_container {
+    width: 90%;
+    height: 270px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+#fields_container input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.input,
+.buffer {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+.input {
+    border: none;
+    min-width: 200px;
+}
+
+.buffer {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: nowrap;
 }

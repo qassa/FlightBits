@@ -15,7 +15,7 @@ function mouseon(e) {
     div_width = this.offsetWidth - (this.offsetWidth - this.clientWidth);
     div_left = this.offsetLeft;
 
-    if (e.clientX <= div_left + div_width && e.clientX >= 0.95 * (div_left + div_width)) {
+    if (e.clientX <= div_left + div_width && e.clientX >= div_left + 0.95 * div_width) {
         //курсор находится на правой границе блока
         //изменяем стиль курсора
         this.style.cursor = "col-resize";
@@ -83,6 +83,7 @@ function numOfRecords() {
 function ready() {
     modalCoords();
     initTools();
+    resizeText();
 }
 //ожидание полной прогрузки DOM
 document.addEventListener("DOMContentLoaded", ready);
