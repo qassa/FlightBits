@@ -1,5 +1,3 @@
-var dataDictionary = { "Авиатехника": "airplane" };
-
 //одновременно может быть отображено только 1 модальное окно
 //функция заполнения элементами редактирования
 function fillModal() {
@@ -9,23 +7,86 @@ function fillModal() {
     //определить контекст данных (с какой сущностью идет работа)
     context = document.getElementById("screen_header");
     context = context.innerHTML;
+    //перебор в цикле осуществляется по ключу
     for (var key in dataDictionary) {
         if (key == context)
-            context = eval(dataDictionary[key] + "_data");
+            context = dataDictionary[key];
     }
 
     //заполнить содержимое модального окна
     //if (addedNodes == undefined)
     //    addedNodes = [];
     //addedNodes.push(document.createElement('div'));
-    var modalNode;
+    var modalNode = document.getElementById("modal_text");
+    modalNode.innerHTML = "";
     if (action == "add") {
-        //modalNode = document.getElementById("modal_text");
+        //вывод элементов для ввода
+        displayElements(modalNode);
+
     }
+    if (action == "edit") {
+        //вывод элементов для ввода
+        displayElements(modalNode);
+        //заполнение модели данными из view
+
+    }
+
+    //навесить обработчик нажатия на закрытие окна 1 раз
+    modalClose = document.getElementById("close_modal");
+    modalClose.addEventListener('click', function() {
+        (document.getElementById("modal_text")).style.display = "none";
+        (document.getElementById("fon")).style.display = "none";
+    });
 
     //отобразить окно
     document.getElementById("modal_text").style.display = "block";
     document.getElementById("fon").style.display = "block";
+
+    modalCoords();
+}
+
+function displayElements(modalNode) {
+    //rendering кнопки закрытия Popup
+    var div = document.createElement("div");
+    div.setAttribute("id", "close_modal");
+    modalNode.appendChild(div);
+    var img = document.createElement("img");
+    img.setAttribute("src", "resource/close_modal.png");
+    div.appendChild(img);
+
+    //rendering элементов ввода данных
+    var position = 0,
+        i = 0;
+    names = Object.getOwnPropertyNames(context.display_fields);
+    for (var field in context.display_fields) {
+        _field = context.display_fields[field];
+        var div = document.createElement("div");
+        div.setAttribute("class", "edit_field");
+        div.innerHTML = _field.name + "<br>";
+        var input = document.createElement("input");
+        //input.setAttribute("value", "");
+        if (_field.type == "text" || _field.type == "numeric")
+            input.setAttribute("type", "text");
+
+        if (_field.type == "image") {
+            input.setAttribute("type", "button");
+            input.setAttribute("value", "Выбрать файл...");
+        }
+        input.setAttribute("name", names[i].substring(1));
+        div.appendChild(input);
+        modalNode.appendChild(div);
+        i++;
+
+        //в каждой строке расположены по 3 элемента редактирования
+        position++;
+        if (position >= 3) {
+            //перенос на строку
+            position = 0;
+            var div = document.createElement("div");
+            div.setAttribute("id", "new_line");
+            modalNode.appendChild(div);
+        }
+    }
 }
 
 //перерасчет координат левого верхнего угла для блока modal_text
@@ -50,7 +111,7 @@ function modalCoords() {
 }
 
 function initTools() {
-    document.getElementById("modal_text").style.display = "none";
+    //document.getElementById("modal_text").style.display = "none";
     document.getElementById("fon").style.display = "none";
 
     var elem = document.getElementsByClassName("add")[0];
@@ -59,10 +120,4 @@ function initTools() {
     var elem = document.getElementsByClassName("edit")[0];
     elem.addEventListener('click', fillModal);
 
-    //навесить обработчик нажатия на закрытие окна 1 раз
-    modalClose = document.getElementById("close_modal");
-    modalClose.addEventListener('click', function() {
-        (document.getElementById("modal_text")).style.display = "none";
-        (document.getElementById("fon")).style.display = "none";
-    });
 }

@@ -6,56 +6,7 @@
 <body>
     <div id="modal_text">
         <!--область, в которой можно провести изменение значения любого из полей для воздушного судна-->
-        <div id="edit_avia">
-            <div id="close_modal">
-                <img src="resource/close_modal.png">
-            </div>
-            <div class="edit_field">
-                №<br><input type="text" name="number_edit" value="">
-            </div>
-            <div class="edit_field">
-                Тип воздушного судна<br><input type="text" name="name_edit" value="">
-            </div>
-            <div class="edit_field">
-                Превью<br><input type="button" name="preview_edit" value="Выбрать файл...">
-            </div>
-            <div id="new_line"></div>
-            <div class="edit_field">
-                Техническое состояние<br><input type="text" name="techstate_edit" value="">
-            </div>
-            <div class="edit_field">
-                Экипаж на борту<br><input type="text" name="staff_edit" value="">
-            </div>
-            <div class="edit_field">
-                Мест в первом классе<br><input type="text" name="first_edit" value="">
-            </div>
-            <div id="new_line"></div>
-            <div class="edit_field">
-                Мест в бизнес-классе<br><input type="text" name="business_edit" value="">
-            </div>
-            <div class="edit_field">
-                Мест в эконом-классе<br><input type="text" name="econom_edit" value="">
-            </div>
-            <div class="edit_field">
-                Крейсерская скорость<br><input type="text" name="creiser_edit" value="">
-            </div>
-            <div id="new_line"></div>
-            <div class="edit_field">
-                Макс. взлетная масса<br><input type="text" name="max_mass_edit" value="">
-            </div>
-            <div class="edit_field">
-                Макс. высота полета<br><input type="text" name="msx_height_edit" value="">
-            </div>
-            <div class="edit_field">
-                Дальность полета<br><input type="text" name="distance_edit" value="">
-            </div>
-            <div id="new_line"></div>
-            <div class="edit_field">
-                Грузоподъемность<br><input type="text" name="carrying_edit" value="">
-            </div>
-            <div id="new_line"></div>
-            <input type="button" class="edit_button" value="Сохранить">
-        </div>
+
     </div>
 
     <div id="fon"></div>
@@ -105,69 +56,22 @@
         </div>
 
         <div id="main_container">
-            <div id="screen_header">Авиатехника</div>
-            <div class="toolbox">
-                <div class="add icon"><img src="resource/add.png"></div>
-                <div class="edit icon"><img src="resource/edit.png"></div>
-                <div class="remove icon"><img src="resource/remove.png"></div>
-                <div class="helper icon"><img src="resource/helper.jpg"></div>
-                <div class="minimize icon"></div>
-                <div class="left_attr icon"></div>
-                <div class="right_attr icon"></div>
+            <div id="static_header">
+                <div id="screen_header">Авиатехника</div>
+                <div class="toolbox">
+                    <div class="add"><img class="icon" src="resource/add.png"></div>
+                    <div class="edit"><img class="icon" src="resource/edit.png"></div>
+                    <div class="remove"><img class="icon" src="resource/remove.png"></div>
+                    <div class="helper"><img class="icon" src="resource/helper.jpg"></div>
+                    <div class="minimize"></div>
+                    <div class="left_attr"></div>
+                    <div class="right_attr"></div>
+                </div>
             </div>
 
-            <table id=records_table>
-                <col width="10px">
-                <tr>
-                    <th><input type="checkbox" name="select_all"></th>
-                    <th>№</th>
-                    <th>Тип воздушного судна</th>
-                    <th>Превью</th>
-                    <th>Техническое состояние</th>
-                    <th>Экипаж на борту</th>
-                    <th>Мест в первом классе</th>
-                    <th>Мест в бизнес-классе</th>
-                    <th>Мест в эконом-классе</th>
-                    <th>Крейсерская скорость</th>
-                    <th>Макс. взлетная масса</th>
-                    <th>Макс. высота полета</th>
-                    <th>Дальность полета</th>
-                    <th>Грузоподъемность</th>
-                </tr>
-                <tr>
-                    <!-- первая строка данных об авиатехнике -->
-                    <td><input type="checkbox" name="select_single"></td>
-                    <td>32</td>
-                    <td>BlindJet 543</td>
-                    <td><img src="resource/fly_boeing.jpg"></td>
-                    <td>A-check 23.08.18</td>
-                    <td>K-546-32</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="select_single"></td>
-                    <td>54</td>
-                    <td>Boeing 773</td>
-                    <td><img src="resource/fly_boeing1.jpg"></td>
-                    <td>C-check 21.08.18</td>
-                    <td>N-5ZZ6-742</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="select_single"></td>
-                    <td>42</td>
-                    <td>CRJ 200</td>
-                    <td><img src="resource/fly_crj.jpg"></td>
-                    <td>A-check 22.08.18</td>
-                    <td>AB-32</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="select_single"></td>
-                    <td>43</td>
-                    <td>Saab 340</td>
-                    <td><img src="resource/saab340.jpg"></td>
-                    <td>A-check 20.08.18</td>
-                    <td>ST-504</td>
-                </tr>
-            </table>
+            <div id="table_container">
+
+            </div>
         </div>
         <div id="detail_container">
             <div class="toolbox">
@@ -196,7 +100,13 @@
         <div id="records_stats">Отображено <input type="text" name="displayed" value="3" size="2"> записей из <input type="text" name="general" value="200" size="2"></div>
 
     </div>
+    <script src="js/classes/airplane.js"></script>
+    <script src="js/classes/flight.js"></script>
     <script src="js/data.js"></script>
+
+    <script src="js/app_run.js"></script>
+
+    <script src="js/table_init.js"></script>
     <script src="js/resizable.js"></script>
     <script src="js/resizable_text.js"></script>
     <script src="js/modal_window.js"></script>

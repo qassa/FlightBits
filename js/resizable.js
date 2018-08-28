@@ -72,18 +72,3 @@ function FindByAttributeValue(attribute, value, element_type) {
     }
     return found;
 }
-
-
-//инициализация кол-ва строк данных на странице
-function numOfRecords() {
-
-}
-
-
-function ready() {
-    modalCoords();
-    initTools();
-    resizeText();
-}
-//ожидание полной прогрузки DOM
-document.addEventListener("DOMContentLoaded", ready);

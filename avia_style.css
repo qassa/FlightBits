@@ -23,17 +23,23 @@ body {
 }
 
 #main_container {
+    max-height: 500px;
     min-height: 500px;
 }
 
 #main_container {
-    display: inline;
     float: left;
     width: 70%;
     background-color: aliceblue;
+}
+
+#static_header {}
+
+#table_container {
+    float: left;
     white-space: nowrap;
     overflow-x: scroll;
-    max-width: 944px;
+    height: 415px;
 }
 
 #screen_header {
@@ -103,7 +109,7 @@ body {
     ...
 }
 
-.icon img {
+.icon {
     max-width: 30px;
     max-height: 30px;
 }
@@ -120,18 +126,13 @@ body {
     border: 1px solid lightgray;
 }
 
-#edit_avia {
-    padding: 10px 0;
-    background-color: aliceblue;
-}
-
 .edit_field {
     margin: 0px 25px;
     display: inline-block;
     min-width: 200px;
 }
 
-#edit_avia img {
+#modal_text img {
     max-width: 20px;
     max-height: 20px;
 }
@@ -153,10 +154,11 @@ body {
 
 #modal_text {
     position: fixed;
+    padding: 10px 0;
     top: 50%;
     left: 50%;
     z-index: 2;
-    background-color: #fefefe;
+    background-color: aliceblue;
 }
 
 #close_modal {
