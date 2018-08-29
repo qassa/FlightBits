@@ -196,7 +196,7 @@ function deleteRec() {
                     d = rows[t];
                     d.remove();
                     //сместиться назад
-                    t--;
+                    t = 0;
                     //rows = document.getElementsByTagName("tr");
                     marked.splice(marked.indexOf(marked[mark]), 1);
                 }
