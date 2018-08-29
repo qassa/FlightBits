@@ -30,6 +30,10 @@ function fillModal() {
         //заполнение модели данными из view
 
     }
+    if (action == "remove") {
+        //вывод окна подтверждения
+        confirmRemove(modalNode);
+    }
 
     //навесить обработчик нажатия на закрытие окна 1 раз
     modalClose = document.getElementById("close_modal");
@@ -45,7 +49,7 @@ function fillModal() {
     modalCoords();
 }
 
-function displayElements(modalNode) {
+function renderCloseButton(modalNode) {
     //rendering кнопки закрытия Popup
     var div = document.createElement("div");
     div.setAttribute("id", "close_modal");
@@ -53,6 +57,16 @@ function displayElements(modalNode) {
     var img = document.createElement("img");
     img.setAttribute("src", "resource/close_modal.png");
     div.appendChild(img);
+}
+
+function confirmRemove(modalNode) {
+    renderCloseButton(modalNode);
+
+
+}
+
+function displayElements(modalNode) {
+    renderCloseButton(modalNode);
 
     //rendering элементов ввода данных
     var position = 0,
@@ -72,7 +86,7 @@ function displayElements(modalNode) {
             input.setAttribute("type", "button");
             input.setAttribute("value", "Выбрать файл...");
         }
-        input.setAttribute("name", names[i].substring(1));
+        input.setAttribute("name", names[i].substring(1) + "_edit");
         div.appendChild(input);
         modalNode.appendChild(div);
         i++;
@@ -87,6 +101,18 @@ function displayElements(modalNode) {
             modalNode.appendChild(div);
         }
     }
+    //вставка кнопки подтверждения
+    var div = document.createElement("div");
+    div.setAttribute("id", "new_line");
+    modalNode.appendChild(div);
+
+    var save = document.createElement("input");
+    save.setAttribute("type", "button");
+    save.setAttribute("class", "save_button");
+    save.setAttribute("value", "Сохранить");
+    save.addEventListener("click", saveRec);
+
+    modalNode.appendChild(save);
 }
 
 //перерасчет координат левого верхнего угла для блока modal_text
@@ -120,4 +146,6 @@ function initTools() {
     var elem = document.getElementsByClassName("edit")[0];
     elem.addEventListener('click', fillModal);
 
+    var elem = document.getElementsByClassName("remove")[0];
+    elem.addEventListener('click', deleteRec);
 }

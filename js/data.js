@@ -1,3 +1,5 @@
+window.global_id = 99;
+
 var airplane_data = [{
         id: 1,
         number: 32,

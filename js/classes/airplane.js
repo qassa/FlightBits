@@ -71,6 +71,7 @@ function Airplane() {
     }
 
     this.enum_fields = {
+        _id: this._id,
         _number: this._number,
         _type_vs: this._type_vs,
         _preview: this._preview,
@@ -81,9 +82,6 @@ function Airplane() {
         _distance: this._distance,
         _fuelState: this._fuelState,
         _airCompanyOwner: this._airCompanyOwner,
-
-        _id: this._id,
-        _seats: this._seats
     }
 
 
