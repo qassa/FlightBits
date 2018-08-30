@@ -1,5 +1,5 @@
-var dataNameDictoinary = { "Авиатехника": "airplane", "Рейсы": "flight" };
-var dataDictionary = { "Авиатехника": new Airplane(), "Рейсы": new Flight() };
+var dataNameDictoinary = { "Авиатехника": "airplane", "Рейсы": "flight", "Пассажиры": "passanger" };
+var dataDictionary = { "Авиатехника": new Airplane(), "Рейсы": new Flight(), "Пассажиры": new Passnager() };
 
 function ready() {
     initTools();

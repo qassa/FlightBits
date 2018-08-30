@@ -28,7 +28,7 @@ function fillModal() {
         //вывод элементов для ввода
         displayElements(modalNode);
         //заполнение модели данными из view
-
+        //dataToElements(modalNode);
     }
     if (action == "remove") {
         //вывод окна подтверждения
@@ -62,6 +62,10 @@ function renderCloseButton(modalNode) {
 function confirmRemove(modalNode) {
     renderCloseButton(modalNode);
 
+
+}
+
+function dataToElements() {
 
 }
 

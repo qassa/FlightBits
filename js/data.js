@@ -27,3 +27,29 @@ var airplane_data = [{
         airCompanyOwner: "Air Transat"
     }
 ];
+
+var flight_data = [{
+    id: 1,
+    number: 12,
+    type_vs: "BlindJet 543",
+    arrangement: 140,
+    aircompany_vs: "FlyEmirates",
+    commander_surname: "Васильев А.П.",
+    route: "Калининград - Владивосток",
+    plan_arrive_time: "30.08.18. 15:12",
+    fact_arrive_time: "-",
+    schedule_takeoff_time: "29.08.18 01:10",
+    fact_takeoff_time: "29.08.18 01:15",
+    reason_of_delay: "Погодные условия"
+}];
+
+var passanger_data = [{
+    id: 1,
+    name: "Алексей",
+    surname: "Васильев",
+    patronymic: "Иванович",
+    passportID: "2452 125652",
+    nationality: "Русский",
+    reasonOfFlight: "Переезд",
+    age: 35
+}];

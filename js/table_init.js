@@ -4,6 +4,9 @@ var data;
 var table;
 var dataKeys;
 
+var marked = [];
+var highlighted;
+
 function setContext() {
     //определение контекста (сущности, для которой выводятся данные)
     context = document.getElementById("screen_header");
@@ -89,6 +92,7 @@ function new_line(table) {
 
 function tr(table) {
     var tr = document.createElement("tr");
+    //tag1.addEventListener("click", highlightRow);
     table.appendChild(tr);
     return tr;
 }
@@ -126,8 +130,6 @@ function th_td(table_tag, tr, html, tag, src, type, name, id) {
         th.innerHTML = html;
     tr.appendChild(th);
 }
-
-var marked = [];
 
 //пользователь может выбрать любую строку
 function markRecord() {
@@ -246,6 +248,12 @@ function push_data(data, dataContextEnum) {
     for (var key in recordKeys) {
         data_s[recordKeys[key].substring(1)] = dataContextEnum[recordKeys[key]].value;
     }
+}
+
+function highlightRow() {
+    //подсветка всей строки
+
+    //запись id (используется позже для редактирования)
 }
 
 //функция для предварительного сохранения всех узлов, которые относятся к input checkbox
