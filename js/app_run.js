@@ -2,9 +2,7 @@ var dataNameDictoinary = { "Авиатехника": "airplane", "Рейсы": "
 var dataDictionary = { "Авиатехника": new Airplane(), "Рейсы": new Flight(), "Пассажиры": new Passnager() };
 
 function ready() {
-    initTools();
-    initTableContent();
-    resizeText();
+    AV = new AirplaneView();
 
 }
 //ожидание полной прогрузки DOM

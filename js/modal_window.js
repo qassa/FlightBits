@@ -65,10 +65,6 @@ function confirmRemove(modalNode) {
 
 }
 
-function dataToElements() {
-
-}
-
 function displayElements(modalNode) {
     renderCloseButton(modalNode);
 
@@ -138,18 +134,4 @@ function modalCoords() {
     //установить положение для элемента close_modal
     modalClose = document.getElementById("close_modal");
     modalClose.style.left = modalWidth - 30;
-}
-
-function initTools() {
-    //document.getElementById("modal_text").style.display = "none";
-    document.getElementById("fon").style.display = "none";
-
-    var elem = document.getElementsByClassName("add")[0];
-    elem.addEventListener('click', fillModal);
-
-    var elem = document.getElementsByClassName("edit")[0];
-    elem.addEventListener('click', fillModal);
-
-    var elem = document.getElementsByClassName("remove")[0];
-    elem.addEventListener('click', deleteRec);
 }

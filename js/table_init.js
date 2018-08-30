@@ -232,14 +232,14 @@ function saveRec() {
     global_id++;
     dataContext.enum_fields["_id"].value = global_id;
 
-    push_data(data, dataContext.enum_fields);
+    pushData(data, dataContext.enum_fields);
 
     setContext();
     initHeader();
     initRecords();
 }
 
-function push_data(data, dataContextEnum) {
+function pushData(data, dataContextEnum) {
     deleteRecs();
 
     recordKeys = Object.getOwnPropertyNames(dataContextEnum);

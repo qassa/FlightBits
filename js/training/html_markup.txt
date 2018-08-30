@@ -13,6 +13,19 @@
 
     </div>
     <div id=views_container>
+        <div class="view_slice">
+            <a href="plane_view.html">Авиатехника</a>
+        </div>
+        <div id="view_space"></div>
+        <div class="view_slice">
+            <a href="voyage_view.html">Рейсы</a>
+        </div>
+        <div id="view_space"></div>
+        <div class="view_slice">Персонал</div>
+        <div id="view_space"></div>
+        <div class="view_slice">Пассажиры</div>
+        <div id="view_space"></div>
+        <div class="view_slice">График полетов</div>
 
     </div>
 
@@ -57,7 +70,57 @@
             </div>
 
             <div id="table_container">
-
+                <table id=records_table>
+                    <col width="10px">
+                    <tr>
+                        <th><input type="checkbox" name="select_all"></th>
+                        <th>№</th>
+                        <th>Тип воздушного судна</th>
+                        <th>Превью</th>
+                        <th>Техническое состояние</th>
+                        <th>Экипаж на борту</th>
+                        <th>Мест в первом классе</th>
+                        <th>Мест в бизнес-классе</th>
+                        <th>Мест в эконом-классе</th>
+                        <th>Крейсерская скорость</th>
+                        <th>Макс. высота полета</th>
+                        <th>Дальность полета</th>
+                        <th>Грузоподъемность</th>
+                    </tr>
+                    <tr>
+                        <!-- первая строка данных об авиатехнике -->
+                        <td><input type="checkbox" name="select_single"></td>
+                        <td>32</td>
+                        <td>BlindJet 543</td>
+                        <td><img src="resource/fly_boeing.jpg"></td>
+                        <td>A-check 23.08.18</td>
+                        <td>K-546-32</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select_single"></td>
+                        <td>54</td>
+                        <td>Boeing 773</td>
+                        <td><img src="resource/fly_boeing1.jpg"></td>
+                        <td>C-check 21.08.18</td>
+                        <td>N-5ZZ6-742</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select_single"></td>
+                        <td>42</td>
+                        <td>CRJ 200</td>
+                        <td><img src="resource/fly_crj.jpg"></td>
+                        <td>A-check 22.08.18</td>
+                        <td>AB-32</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="select_single"></td>
+                        <td>43</td>
+                        <td>Saab 340</td>
+                        <td><img src="resource/saab340.jpg"></td>
+                        <td>A-check 20.08.18</td>
+                        <td>ST-504</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div id="detail_container">
@@ -89,17 +152,12 @@
     </div>
     <script src="js/classes/airplane.js"></script>
     <script src="js/classes/flight.js"></script>
-    <script src="js/classes/passanger.js"></script>
     <script src="js/data.js"></script>
-
-    <script src="js/views/View.js"></script>
-    <script src="js/views/AirplaneView.js"></script>
-    <script src="js/views/partials/NavigationView.js"></script>
-    <script src="js/views/partials/TableView.js"></script>
 
     <script src="js/app_run.js"></script>
 
     <script src="js/table_init.js"></script>
+    <script src="js/resizable.js"></script>
     <script src="js/resizable_text.js"></script>
     <script src="js/modal_window.js"></script>
 </body>
