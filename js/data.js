@@ -24,7 +24,7 @@ var airplane_data = [{
         maxFlightHeight: 11000,
         distance: 4350,
         fuelState: 100,
-        airCompanyOwner: "Air Transat"
+        airCompanyOwner: "Air Transit"
     }
 ];
 

@@ -1,0 +1,51 @@
+#block_container {
+    margin: 0 auto;
+    width: 700px;
+    height: 350px;
+    background-color: #2F2F2F;
+}
+
+#screen_header {
+    padding: 2px;
+    background-color: black;
+    width: 99%;
+    height: 23%;
+}
+
+#clock_container {
+    display: inline-block;
+    width: 16%;
+    height: 50%;
+    background-color: #670A02;
+}
+
+#local_time {
+    max-width: 7%;
+    display: inline-block;
+    vertical-align: top;
+    color: #F5A919;
+}
+
+#table_of_takeoffs {
+    margin-left: 15%;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #F5A919;
+    font-size: 24px;
+    letter-spacing: 4px;
+    vertical-align: top;
+}
+
+#HH3 {
+    font-size: 12px;
+}
+
+#HH4 {
+    font-size: 8px;
+}
+
+#flight_number {
+    display: inline-block;
+    vertical-align: bottom;
+    color: #F5A919;
+}

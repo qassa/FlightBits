@@ -8,6 +8,8 @@ function AirplaneView() {
     table = new TableView();
 
     //отобразить детальное представление
+    detail = new DetailedView();
 
     //отобразить количество записей
+
 }

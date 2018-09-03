@@ -1,6 +1,12 @@
 function View() {
+    this.controller = undefined; //контроллер для передачи данных из View
+    var cFactory = new ControllerFactory();
+
     this.byId = function(id) {
         return document.getElementById(id);
+    }
+    this.byCl = function(classs) {
+        return document.getElementsByClassName(classs)[0];
     }
     this.create = function(tag, parent, chain) {
         node = document.createElement(tag);
@@ -26,6 +32,16 @@ function View() {
         } else {
             node.innerText = text;
             return node;
+        }
+    }
+    this.setController = function() {
+        if (this.controller == undefined) {
+            //только если контроллер до этого не был установлен (Singleton)
+            //определение контекста (сущности, для которой выводятся данные)
+            context = document.getElementById("screen_header");
+            context = context.innerHTML;
+
+            this.controller = cFactory.factory(context);
         }
     }
 }
