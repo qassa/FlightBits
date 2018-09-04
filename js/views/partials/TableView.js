@@ -1,15 +1,19 @@
-function TableView() {
-    table = undefined;
+var marked = [];
+
+function TableView(modal) {
+    this.modal;
+    that = {};
+    that.table = undefined;
 
     function initTools() {
         var elem = byCl("add");
-        elem.addEventListener('click', fillModal);
+        elem.addEventListener('click', this.modal.fillModal);
 
         var elem = byCl("edit");
-        elem.addEventListener('click', fillModal);
+        elem.addEventListener('click', this.modal.fillModal);
 
         var elem = byCl("remove");
-        elem.addEventListener('click', deleteRec);
+        elem.addEventListener('click', this.modal.deleteRec);
     }
 
     function modalBackground() {
@@ -20,25 +24,23 @@ function TableView() {
 
     tr = function(table) {
         trr = document.createElement("tr");
-        table.appendChild(trr);
+        that.table.appendChild(trr);
         return trr;
         //tag1.addEventListener("click", highlightRow);
     }
 
     function initHeader() {
         //запись новой строки в таблицу
-        tr1 = tr(table);
+        tr1 = tr(that.table);
         //отличается запись для первой колонки (checkbox)
         th_td("th", tr1, undefined, "input", undefined, "checkbox", "select_all");
         keys = this.controller.getDataKeys();
         for (var key in keys) {
-            //keys.forEach(function(key) {
             name_ = this.controller.getFieldName(key);
-            //keys[key].name;
             if (name_ != "id")
                 th_td("th", tr1, name_);
         }
-        tr1 = tr(table);
+        tr1 = tr(that.table);
     }
 
     function initRecords() {
@@ -66,7 +68,7 @@ function TableView() {
                     th_td("td", tr1, undefined, "img", elem[key].value);
             }
             //перенос указателя строки
-            tr1 = tr(table);
+            tr1 = tr(that.table);
         });
     }
 
@@ -103,12 +105,76 @@ function TableView() {
 
     function initTableContent() {
         this.setController();
-        if (table == undefined) {
-            table = create("table", byId("table_container"), true).attr("id", "records_table");
+        if (that.table == undefined) {
+            that.table = create("table", byId("table_container"), true).attr("id", "records_table");
         }
         //заполнение внутренней таблицы из БД / заглушки
         initHeader();
         initRecords();
+    }
+
+    //пользователь может отметить на удаление либо редактирование любую строку
+    function markRecord() {
+        id = this.parentNode.parentNode.getAttribute("id");
+        if (this.checked)
+            marked.push(id);
+        else
+            marked.splice(marked.indexOf(id), 1);
+    }
+
+    function markRecords() {
+        checked = this.checked;
+
+        nodes = getTableNodes();
+        nodes.forEach(function(child) {
+            if (child.nodeName == "INPUT" && child.getAttribute("name") == "select_single") {
+                child.checked = checked;
+                if (checked) {
+                    marked.push(node.getAttribute("id"));
+                } else {
+                    marked = [];
+                }
+            }
+        });
+    }
+
+    function getTableNodes() {
+        nodes = [];
+        for (var row of that.table.rows) {
+            for (var cell of row.childNodes) {
+                for (var child of cell.childNodes)
+                    nodes.push(child);
+            }
+        }
+        return nodes;
+    }
+
+    function deleteRec() {
+        for (var mark of marked) {
+            for (var row of byTg("tr")) {
+                if (row.getAttribute("id") == mark) {
+                    row.remove();
+                    marked.splice(marked.indexOf(mark), 1);
+                    //повторный вызов
+                    deleteRec();
+                    return;
+                }
+            }
+        }
+    }
+
+    function deleteRecs() {
+        that.table.remove();
+        that.table = undefined;
+
+        //зануление маркеров отмеченных записей
+        marked = [];
+    }
+
+    function highlightRow() {
+        //подсветка всей строки
+
+        //запись id (используется позже для редактирования)
     }
 
     var render = function() {
@@ -118,9 +184,12 @@ function TableView() {
         initTableContent();
     };
 
-    constructor = function() {
+    constructor = function(modal) {
+        View.call(this);
+        this.modal = modal;
+
         render();
     };
 
-    constructor();
+    constructor(modal);
 }

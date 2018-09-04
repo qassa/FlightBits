@@ -1,6 +1,6 @@
 function NavigationView() {
     var insertName = "views_container";
-    var links = { "Авиатехника": "plane_view", "Рейсы": "voyage_view", "Персонал": "staff_view" };
+    var links = { "Авиатехника": "plane_view", "Рейсы": "voyage_view", "Персонал": "staff_view", "Пассажиры": "passanger_view", "График полетов": "flight_graph_view" };
 
     var render = function() {
         //вывод элементов навигационного меню системы

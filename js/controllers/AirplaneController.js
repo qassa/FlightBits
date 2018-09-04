@@ -8,23 +8,19 @@ function AirplaneController(context) {
     //данные модели, используемые при построении таблицы
     this.dataKeys = {};
     //данные модели, отображаемые на UI
-    this.displayKeys = [];
+    this.displayKeys = {};
 
-    this.dataKeysLoad = function() {
-        //сохранение списка полей доступных для отображения в таблице данных
-        //сохранение имени и типа
-        this.dataKeys = {};
-
-        for (var key in enum_fields) {
-            //field = {};
+    this.keysLoad = function(fields) {
+        keys = {};
+        for (var key in fields) {
             key = key.substring(1);
-            this.dataKeys[key] = new Object();
-            this.dataKeys[key].name = enum_fields["_" + key].name;
-            this.dataKeys[key].type = enum_fields["_" + key].type;
-            //this.dataKeys[key] = field;
-            //this.dataKeys.push(field);
+            keys[key] = new Object();
+            keys[key].name = fields["_" + key].name;
+            keys[key].type = fields["_" + key].type;
         }
+        return keys;
     }
+
 
     this.getDataRecords = function() {
         //поиск совпадающих полей в объекте data и в Airplane
@@ -58,6 +54,10 @@ function AirplaneController(context) {
         return this.dataKeys[field].name;
     }
 
+    this.getDisplayKeys = function() {
+        return this.displayKeys;
+    }
+
     this.constructor = function(context) {
         //загрузка из заглушки записей БД посредством eval()
         this.data = eval(context + "_data");
@@ -65,8 +65,11 @@ function AirplaneController(context) {
 
         //короткая ссылка на перечислимые поля
         enum_fields = this.model.enum_fields;
+        //сокращенная ссылка на редактируемые поля
+        disp_fields = this.model.display_fields;
 
-        this.dataKeysLoad();
+        this.dataKeys = this.keysLoad(enum_fields);
+        this.displayKeys = this.keysLoad(disp_fields);
         //сохранение списка доступных для редактирования/добавления полей
         //предполагается, что в заглушке данных всегда есть хотя бы одна запись данных (хотя бы только структура)
         this.displayKeys = Object.keys(this.model.display_fields);

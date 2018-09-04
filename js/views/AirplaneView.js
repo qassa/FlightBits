@@ -4,12 +4,14 @@ function AirplaneView() {
 
     //отобразить панель фильтрации
 
+    //отобразить модальное окно
+    modal = new ModalView();
+
     //отобразить табличное представление
-    table = new TableView();
+    table = new TableView(modal);
 
     //отобразить детальное представление
     detail = new DetailedView();
 
     //отобразить количество записей
-
 }

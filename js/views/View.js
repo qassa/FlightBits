@@ -5,6 +5,9 @@ function View() {
     this.byId = function(id) {
         return document.getElementById(id);
     }
+    this.byTg = function(tag) {
+        return document.getElementsByTagName(tag);
+    }
     this.byCl = function(classs) {
         return document.getElementsByClassName(classs)[0];
     }
