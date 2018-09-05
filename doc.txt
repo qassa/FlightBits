@@ -167,3 +167,139 @@ field = {
 - подсвечивать выбранные строки
 - сохранять последний примененный фильтр
 - интервал автоматического обновления строк в таблице
+
+
+
+
+
+Преимущества использования MVC для frontend - приложения:
+Абстрагирование всех обращений к данным
+
+context = document.getElementById("screen_header");
+context = context.innerHTML;
+//перебор в цикле осуществляется по ключу
+for (var key in dataDictionary) {
+    if (key == context)
+        context = dataDictionary[key];
+}
+
+
+keys = this.controller.getDataKeys();
+
+
+Упрощение циклического вывода графических элементов fontend - приложения
+
+function deleteRec() {
+    rows = document.getElementsByTagName("tr");
+
+    for (var mark in marked) {
+        var d;
+        for (var t = 0; t < rows.length; t++) {
+            //for (row in rows) {
+            if (rows[t] != "length" && rows[t] != "item" && rows[t] != "namedItem")
+                if (rows[t].getAttribute("id") == marked[mark]) {
+                    d = rows[t];
+                    d.remove();
+                    //сместиться назад
+                    t = 0;
+                    //rows = document.getElementsByTagName("tr");
+                    marked.splice(marked.indexOf(marked[mark]), 1);
+                }
+        }
+
+    }
+}
+
+
+function deleteRec() {
+    for (var mark of marked) {
+        for (var row of byTg("tr")) {
+            if (row.getAttribute("id") == mark) {
+                row.remove();
+                marked.splice(marked.indexOf(mark), 1);
+                //повторный вызов
+                deleteRec();
+                return;
+            }
+        }
+    }
+}
+
+
+Замена сложных для восприятия 3-уровневых вложений for, foreach на стороне представления на циклы с максимальным числом вложений 2
+Замена оператора "for in" на, "for of" для прямой работы со значением в цикле, а не с его индексом
+
+
+function markRecords() {
+    checked = this.checked;
+    if (checked) {
+
+
+        //перебор tr в table
+        for (var node in table.rows) {
+            node = table.rows[node];
+            //перебор childNodes в tr
+            for (var cell in node.childNodes) {
+                //перебор childNodes в tr
+                cell = node.childNodes[cell];
+                for (var child in cell.childNodes) {
+                    child = cell.childNodes[child];
+                    if (child.nodeName == "INPUT" && child.getAttribute("name") == "select_single") {
+                        child.checked = checked;
+                        marked.push(node.getAttribute("id"));
+                    }
+                }
+            }
+        }
+
+
+    } else {
+        marked = [];
+
+        for (var node in table.rows) {
+            node = table.rows[node];
+            for (var cell in node.childNodes) {
+                cell = node.childNodes[cell];
+                for (var child in cell.childNodes) {
+                    child = cell.childNodes[child];
+                    if (child.nodeName == "INPUT" && child.getAttribute("name") == "select_single") {
+                        child.checked = checked;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+}
+
+
+
+ 
+function markRecords() {
+    checked = this.checked;
+
+    nodes = getTableNodes();
+    nodes.forEach(function(child) {
+        if (child.nodeName == "INPUT" && child.getAttribute("name") == "select_single") {
+            child.checked = checked;
+            if (checked) {
+                marked.push(node.getAttribute("id"));
+            } else {
+                marked = [];
+            }
+        }
+    });
+}
+
+function getTableNodes() {
+    nodes = [];
+    for (var row of that.table.rows) {
+        for (var cell of row.childNodes) {
+            for (var child of cell.childNodes)
+                nodes.push(child);
+        }
+    }
+    return nodes;
+}
