@@ -1,8 +1,11 @@
 var marked = [];
 
-function TableView(modal) {
+function TableView(modal, detail) {
     this.modal;
+    this.detail;
     that = {};
+    that.controller;
+    var that = {};
     that.table = undefined;
 
     function initTools() {
@@ -16,12 +19,6 @@ function TableView(modal) {
         elem.addEventListener('click', this.modal.deleteRec);
     }
 
-    function modalBackground() {
-        //modal_text добавляется только при появлении модального окна, нет необходимости изменять style.display
-        //document.getElementById("modal_text").style.display = "none";
-        byId("fon").style.display = "none";
-    }
-
     tr = function(table) {
         trr = document.createElement("tr");
         that.table.appendChild(trr);
@@ -29,16 +26,54 @@ function TableView(modal) {
         //tag1.addEventListener("click", highlightRow);
     }
 
+    trSelected = function() {
+        id = this.getAttribute("id");
+        if (id != that.lastSelect) {
+            if (that.lastSelect != -1) {
+                table = byId("records_table", document);
+                select = byId(that.lastSelect, table);
+                select.style.background = 'none';
+            }
+            //обновление, highlight строки
+            this.style.background = '#FFFFD5';
+            that.lastSelect = id;
+        }
+        //запись значений во временный объект
+        keys = that.controller.getDataKeys();
+
+        sel_obj = {};
+        tr_h = byId("table_container")
+        tr_h = byId("0");
+        for (var child of tr_h.childNodes) {
+            attrib = child.getAttribute("class");
+            if (attrib != undefined) {
+                begin = attrib.indexOf("_data");
+                field = attrib.substring(0, attrib.length - (attrib.length - begin));
+                sel_obj[field] = this.childNodes[child].innerText;
+            } else {
+                sel_obj["id"] = this.getAttribute("id");
+            }
+        }
+
+        //обновление детального просмотра (если имеется)
+        if (detail != undefined) {
+
+        }
+    }
+
     function initHeader() {
         //запись новой строки в таблицу
         tr1 = tr(that.table);
+        tr1.setAttribute("id", "0");
         //отличается запись для первой колонки (checkbox)
         th_td("th", tr1, undefined, "input", undefined, "checkbox", "select_all");
         keys = this.controller.getDataKeys();
         for (var key in keys) {
             name_ = this.controller.getFieldName(key);
-            if (name_ != "id")
-                th_td("th", tr1, name_);
+            if (name_ != "id") {
+                th = th_td("th", tr1, name_);
+                th.setAttribute("class", key + "_data");
+            }
         }
         tr1 = tr(that.table);
     }
@@ -49,6 +84,9 @@ function TableView(modal) {
 
         //перебор всех записей
         records.forEach(function(elem) {
+            //обработчик нажатия на строку с данными
+            tr1.addEventListener('click', trSelected);
+
             //колонка с id всегда первая, найти id
             //без id выполнить вставку невозможно (далее будет невозможно обратиться к записи)
             elem_id = elem["id"];
@@ -101,10 +139,10 @@ function TableView(modal) {
         if (html != undefined)
             th.innerHTML = html;
         tr.appendChild(th);
+        return th;
     }
 
     function initTableContent() {
-        this.setController();
         if (that.table == undefined) {
             that.table = create("table", byId("table_container"), true).attr("id", "records_table");
         }
@@ -180,16 +218,19 @@ function TableView(modal) {
     var render = function() {
         //элементы для редактирования записей расположены в таблице
         initTools();
-        modalBackground();
         initTableContent();
     };
 
-    constructor = function(modal) {
+    constructor = function(modal, detail) {
         View.call(this);
+        this.setController();
+        that.controller = this.controller;
         this.modal = modal;
+        this.detail = detail;
+        that.lastSelect = this.lastSelected;
 
         render();
     };
 
-    constructor(modal);
+    constructor(modal, detail);
 }

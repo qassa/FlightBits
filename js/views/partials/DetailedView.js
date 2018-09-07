@@ -1,17 +1,4 @@
 function DetailedView() {
-    var render = function() {
-        displayDetails();
-        textResize();
-    }
-
-    constructor = function() {
-        View.call(this);
-
-        render();
-    }
-
-    constructor();
-
     displayDetails = function() {
 
     }
@@ -31,4 +18,17 @@ function DetailedView() {
             };
         }
     }
+
+    var render = function() {
+        displayDetails();
+        textResize();
+    }
+
+    constructor = function() {
+        View.call(this);
+
+        render();
+    }
+
+    constructor();
 }

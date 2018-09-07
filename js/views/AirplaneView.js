@@ -7,11 +7,11 @@ function AirplaneView() {
     //отобразить модальное окно
     modal = new ModalView();
 
-    //отобразить табличное представление
-    table = new TableView(modal);
-
     //отобразить детальное представление
     detail = new DetailedView();
+
+    //отобразить табличное представление
+    table = new TableView(modal, detail);
 
     //отобразить количество записей
 }

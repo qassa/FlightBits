@@ -1,6 +1,7 @@
 function View() {
     this.controller = undefined; //контроллер для передачи данных из View
     var cFactory = new ControllerFactory();
+    this.lastSelected = -1;
 
     this.byId = function(id) {
         return document.getElementById(id);
@@ -37,6 +38,16 @@ function View() {
             return node;
         }
     }
+    this.inH = function(text, chain) {
+        if (chain == true) {
+            node.innerHTML = text;
+            return this;
+        } else {
+            node.innerHTML = text;
+            return node;
+        }
+    }
+
     this.setController = function() {
         if (this.controller == undefined) {
             //только если контроллер до этого не был установлен (Singleton)

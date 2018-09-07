@@ -46,6 +46,10 @@ function AirplaneController(context) {
         return export_data;
     }
 
+    this.getDisplayKeys = function() {
+        return this.displayKeys;
+    }
+
     this.getDataKeys = function() {
         return this.dataKeys;
     }
@@ -54,8 +58,8 @@ function AirplaneController(context) {
         return this.dataKeys[field].name;
     }
 
-    this.getDisplayKeys = function() {
-        return this.displayKeys;
+    this.newRecord = function(record) {
+
     }
 
     this.constructor = function(context) {
@@ -68,11 +72,10 @@ function AirplaneController(context) {
         //сокращенная ссылка на редактируемые поля
         disp_fields = this.model.display_fields;
 
-        this.dataKeys = this.keysLoad(enum_fields);
-        this.displayKeys = this.keysLoad(disp_fields);
         //сохранение списка доступных для редактирования/добавления полей
         //предполагается, что в заглушке данных всегда есть хотя бы одна запись данных (хотя бы только структура)
-        this.displayKeys = Object.keys(this.model.display_fields);
+        this.dataKeys = this.keysLoad(enum_fields);
+        this.displayKeys = this.keysLoad(disp_fields);
         return this.airplane;
     }
 
