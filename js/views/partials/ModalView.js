@@ -1,6 +1,7 @@
 function ModalView() {
     var that = {}
     that.controller;
+    this.table;
 
     //одновременно может быть отображено только 1 модальное окно
     //функция заполнения элементами редактирования
@@ -36,6 +37,23 @@ function ModalView() {
         byId("fon").style.display = "block";
 
         modalCoords();
+    }
+
+    function saveRec() {
+        modal = byId("modal_text");
+        record = {};
+
+        var elems = modal.getElementsByTagName("INPUT");
+        max = elems.length;
+        for (i = 0; i < max; i++) {
+            elem = elems[i];
+            //убрать edit в имени элемента
+            name = elem.getAttribute("name");
+            begin = name.indexOf("_edit");
+            name = name.substring(0, name.length - (name.length - begin));
+            record[name] = elem.value;
+        }
+        that.controller.create(record);
     }
 
     function displayElements(modalNode, keys) {
@@ -118,7 +136,7 @@ function ModalView() {
 
     }
 
-    constructor = function() {
+    this.constructor = function() {
         View.call(this);
         modalBackground();
         this.setController();
@@ -127,5 +145,5 @@ function ModalView() {
         render();
     }
 
-    constructor();
+    this.constructor();
 }

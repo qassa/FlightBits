@@ -1,12 +1,12 @@
-var marked = [];
-
 function TableView(modal, detail) {
+    marked = [];
     this.modal;
     this.detail;
     that = {};
     that.controller;
     var that = {};
     that.table = undefined;
+    this.tr1;
 
     function initTools() {
         var elem = byCl("add");
@@ -49,7 +49,7 @@ function TableView(modal, detail) {
             if (attrib != undefined) {
                 begin = attrib.indexOf("_data");
                 field = attrib.substring(0, attrib.length - (attrib.length - begin));
-                sel_obj[field] = this.childNodes[child].innerText;
+                //sel_obj[field] = this.childNodes[child].innerText;
             } else {
                 sel_obj["id"] = this.getAttribute("id");
             }
@@ -61,53 +61,61 @@ function TableView(modal, detail) {
         }
     }
 
+    this.newHighlightTr = function() {
+        //перенос указателя строки
+        this.tr1 = tr(that.table);
+        //обработчик нажатия на строку с данными
+        this.tr1.addEventListener('click', trSelected);
+    }
+
     function initHeader() {
         //запись новой строки в таблицу
-        tr1 = tr(that.table);
-        tr1.setAttribute("id", "0");
+        this.tr1 = tr(that.table);
+        this.tr1.setAttribute("id", "0");
         //отличается запись для первой колонки (checkbox)
-        th_td("th", tr1, undefined, "input", undefined, "checkbox", "select_all");
-        keys = this.controller.getDataKeys();
+        th_td("th", this.tr1, undefined, "input", undefined, "checkbox", "select_all");
+        keys = that.controller.getDataKeys();
         for (var key in keys) {
-            name_ = this.controller.getFieldName(key);
+            name_ = that.controller.getFieldName(key);
             if (name_ != "id") {
-                th = th_td("th", tr1, name_);
+                th = th_td("th", this.tr1, name_);
                 th.setAttribute("class", key + "_data");
             }
         }
-        tr1 = tr(that.table);
+        //tr1 = tr(that.table);
     }
 
-    function initRecords() {
+    this.initRecords = function() {
         //получаем массив записей
-        records = this.controller.getDataRecords();
+        records = that.controller.getDataRecords();
 
         //перебор всех записей
-        records.forEach(function(elem) {
-            //обработчик нажатия на строку с данными
-            tr1.addEventListener('click', trSelected);
+        for (var elem of records) {
+            this.newHighlightTr();
 
-            //колонка с id всегда первая, найти id
-            //без id выполнить вставку невозможно (далее будет невозможно обратиться к записи)
-            elem_id = elem["id"];
-            if (elem_id == undefined)
-                throw new Error("id объекта не может отсутствовать");
-            else {
-                th_td("td", tr1, undefined, "input", undefined, "checkbox", "select_single", elem_id.value);
-            }
-            delete elem["id"];
+            this.addRecord(elem, this.tr1);
+        }
+    }
 
-            for (var key in elem) {
-                if (elem[key].type == "text" || elem[key].type == "numeric")
-                    th_td("td", tr1, elem[key].value);
-                else
-                //отличается запись для preview
-                if (elem[key].type == "image")
-                    th_td("td", tr1, undefined, "img", elem[key].value);
-            }
-            //перенос указателя строки
-            tr1 = tr(that.table);
-        });
+    this.addRecord = function(elem, tr1) {
+        //колонка с id всегда первая, найти id
+        //без id выполнить вставку невозможно (далее будет невозможно обратиться к записи)
+        elem_id = elem["id"];
+        if (elem_id == undefined)
+            throw new Error("id объекта не может отсутствовать");
+        else {
+            th_td("td", tr1, undefined, "input", undefined, "checkbox", "select_single", elem_id.value);
+        }
+        delete elem["id"];
+
+        for (var key in elem) {
+            if (elem[key].type == "text" || elem[key].type == "numeric")
+                th_td("td", tr1, elem[key].value);
+            else
+            //отличается запись для preview
+            if (elem[key].type == "image")
+                th_td("td", tr1, undefined, "img", elem[key].value);
+        }
     }
 
     function th_td(table_tag, tr, html, tag, src, type, name, id) {
@@ -142,13 +150,13 @@ function TableView(modal, detail) {
         return th;
     }
 
-    function initTableContent() {
+    this.initTableContent = function() {
         if (that.table == undefined) {
             that.table = create("table", byId("table_container"), true).attr("id", "records_table");
         }
         //заполнение внутренней таблицы из БД / заглушки
         initHeader();
-        initRecords();
+        this.initRecords();
     }
 
     //пользователь может отметить на удаление либо редактирование любую строку
@@ -187,21 +195,21 @@ function TableView(modal, detail) {
         return nodes;
     }
 
-    function deleteRec() {
+    function deleteRecs() {
         for (var mark of marked) {
             for (var row of byTg("tr")) {
                 if (row.getAttribute("id") == mark) {
                     row.remove();
                     marked.splice(marked.indexOf(mark), 1);
                     //повторный вызов
-                    deleteRec();
+                    deleteRecs();
                     return;
                 }
             }
         }
     }
 
-    function deleteRecs() {
+    function deleteTable() {
         that.table.remove();
         that.table = undefined;
 
@@ -209,28 +217,25 @@ function TableView(modal, detail) {
         marked = [];
     }
 
-    function highlightRow() {
-        //подсветка всей строки
-
-        //запись id (используется позже для редактирования)
-    }
-
-    var render = function() {
+    this.render = function() {
         //элементы для редактирования записей расположены в таблице
         initTools();
-        initTableContent();
+        this.initTableContent();
     };
 
-    constructor = function(modal, detail) {
+    this.constructor = function(modal, detail) {
         View.call(this);
         this.setController();
         that.controller = this.controller;
         this.modal = modal;
         this.detail = detail;
-        that.lastSelect = this.lastSelected;
+        that.lastSelect = this.lastSelect;
 
-        render();
+        modal.table = this;
+        detail.table = this;
+
+        this.render();
     };
 
-    constructor(modal, detail);
+    this.constructor(modal, detail);
 }

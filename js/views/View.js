@@ -1,7 +1,7 @@
 function View() {
     this.controller = undefined; //контроллер для передачи данных из View
     var cFactory = new ControllerFactory();
-    this.lastSelected = -1;
+    this.lastSelect = -1;
 
     this.byId = function(id) {
         return document.getElementById(id);
@@ -47,6 +47,9 @@ function View() {
             return node;
         }
     }
+    this.insAft = function(newNode, referenceNode) {
+        return referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
 
     this.setController = function() {
         if (this.controller == undefined) {
@@ -55,7 +58,9 @@ function View() {
             context = document.getElementById("screen_header");
             context = context.innerHTML;
 
-            this.controller = cFactory.factory(context);
+            //передача контекста (чтобы с помощью фабрики создать нужный экземпляр)
+            //передача объекта-this, чтобы установить ссылку в двух направлениях (представление-контроллер)
+            this.controller = cFactory.factory(context, this);
         }
     }
 }

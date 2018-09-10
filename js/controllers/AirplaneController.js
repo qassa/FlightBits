@@ -1,9 +1,9 @@
-function AirplaneController(context) {
-    this.data; //хранилище для последней выборки из источника данных
+function AirplaneController(context, concreteView) {
     this.export_data;
     this.model;
     this.airplane = this;
     enum_fields = undefined;
+    this.view;
 
     //данные модели, используемые при построении таблицы
     this.dataKeys = {};
@@ -26,24 +26,20 @@ function AirplaneController(context) {
         //поиск совпадающих полей в объекте data и в Airplane
         export_data = [];
         dKeys = Object.keys(this.dataKeys);
-        this.data.forEach(function(record) {
-            //для каждого нового поля
-            keys = Object.keys(record);
-            rec = {};
-            keys.forEach(function(key) {
-                dKeys.forEach(function(dataKey) {
-                    if (dataKey == key) {
-                        rec[key] = new Object();
-                        rec[key].type = enum_fields["_" + key].type;
-                        rec[key].value = record[key];
 
-                    }
-                })
-            })
-            export_data.push(rec);
-            tr1 = tr(table);
-        });
+        export_data = this.model.readAll(dKeys);
         return export_data;
+    }
+
+    this.addViewRec = function(record) {
+        //оповещение View о новой записи
+        this.view.table.newHighlightTr();
+        record = this.model.read(record.id);
+        this.view.table.addRecord(record, this.view.table.tr1);
+    }
+
+    this.updateViewRecs = function(recs) {
+
     }
 
     this.getDisplayKeys = function() {
@@ -58,14 +54,21 @@ function AirplaneController(context) {
         return this.dataKeys[field].name;
     }
 
-    this.newRecord = function(record) {
+    this.create = function(record) {
+        this.model.create(record);
+    }
+
+    this.update = function(record) {
 
     }
 
-    this.constructor = function(context) {
-        //загрузка из заглушки записей БД посредством eval()
-        this.data = eval(context + "_data");
-        this.model = new Airplane();
+    this.delete = function(record) {
+
+    }
+
+    this.constructor = function(context, concreteView) {
+        this.model = new Airplane(context, this);
+        this.view = concreteView;
 
         //короткая ссылка на перечислимые поля
         enum_fields = this.model.enum_fields;
@@ -79,5 +82,5 @@ function AirplaneController(context) {
         return this.airplane;
     }
 
-    this.constructor(context);
+    this.constructor(context, concreteView);
 }
