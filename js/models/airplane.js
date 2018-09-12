@@ -1,5 +1,6 @@
 function Airplane(context, concreteController) {
-    this.data; //хранилище для последней выборки из источника данных
+    thiis = {};
+    thiis.data; //хранилище для последней выборки из источника данных
     this.controller;
 
     this._id = {
@@ -109,10 +110,10 @@ function Airplane(context, concreteController) {
         //в вехрнем цикле перебор полей самого объекта (гарантирует правильный порядок полей)
         for (keyD in this.valid_fields) {
             for (key in record) {
-                if (key == keyD) {
+                if (key == keyD.substring(1)) {
                     //валидация содержимого (мы не можем знать, какие данные придут от клиента)
-                    if (valid(record[key]))
-                        this.enum_fields[key] = record[key];
+                    if (this.valid(record[key]))
+                        this.enum_fields["_" + key].value = record[key];
                 }
             }
             //поле не было надено в переданной записи
@@ -129,7 +130,7 @@ function Airplane(context, concreteController) {
         //присвоение ID
         this.enum_fields._id.value = global_id++;
 
-        this.validModel();
+        this.validModel(record);
 
         //создание новой записи в БД
         rec = {};
@@ -142,7 +143,7 @@ function Airplane(context, concreteController) {
         this.data.push(rec);
 
         //сообщить контроллеру об изменении в записях
-        this.controller.addViewRec(rec);
+        return rec;
     }
 
     this.readAll = function(dKeys) {
@@ -184,18 +185,29 @@ function Airplane(context, concreteController) {
     }
 
     this.update = function(record) {
-        this.validModel();
+        this.validModel(record);
+        enum_fields = this.enum_fields;
 
         //заменить запись с указанным ID
         let i = 0;
+        i = record.id;
+
+        j = 0;
         this.data.forEach(function(piece) {
-            if (piece["id"] == record.enum_fields._id)
-                data[i] = record;
-            i++;
+            if (piece["id"] == i) {
+                keys = Object.keys(piece);
+                keys.forEach(function(key) {
+                    if (key == "id")
+                        thiis.data[j][key] = i;
+                    else if (key != "preview")
+                        thiis.data[j][key] = record[key];
+                });
+            }
+            j++;
         });
 
         //сообщить контроллеру об изменении в записях
-        this.controller.updateViewRecs();
+        return this.read(i);
     }
 
     this.delete = function() {
@@ -209,6 +221,7 @@ function Airplane(context, concreteController) {
     this.constructor = function(context, concreteController) {
         //загрузка из заглушки записей БД посредством eval()
         this.data = eval(context + "_data");
+        thiis.data = this.data;
         this.controller = concreteController;
     }
 

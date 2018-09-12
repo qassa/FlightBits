@@ -29,6 +29,9 @@ function View() {
             return node;
         }
     }
+    this.gattr = function(node, attr) {
+        return node.getAttribute(attr);
+    }
     this.inner = function(text, chain) {
         if (chain == true) {
             node.innerText = text;

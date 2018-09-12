@@ -1,5 +1,4 @@
 function DetailedView() {
-    this.table;
     this.preview;
     this.container;
     that = {};
@@ -25,22 +24,39 @@ function DetailedView() {
         }
     }
 
+    this.updateDetail = function(id) {
+        //эта View знает, что из всех полей display_fields нужно все отображать одинаково кроме preview
+        rec = that.controller.read(id);
+
+        keys = that.controller.getDisplayKeys();
+        for (var key in keys) {
+            for (var field of this.container.childNodes) {
+                name = gattr(field, "name");
+                name = name.substring(0, name.indexOf("_data"));
+                if (name != "null")
+                    if (name == key)
+                        field.setAttribute("value", rec[key].value);
+
+            }
+        }
+        this.preview.setAttribute("src", "resource/" + rec["preview"].value + ".jpg");
+    }
+
     this.displayDetails = function() {
         inserted = byId("detail_container");
 
         create("div", inserted, true).attr("class", "toolbox");
         this.preview = create("div", inserted, true).attr("class", "preview");
-        create("img", this.preview, true).attr("src", "");
+        this.preview = create("img", this.preview, true).attr("src", "");
 
         this.container = create("div", inserted, true).attr("id", "fields_container");
 
         //заполнение содержимого детального просмотра
         keys = that.controller.getDisplayKeys();
         for (var key in keys) {
-            name_ = that.controller.getFieldName(key);
-            if (name_ != "preview") {
-                div_text = keys[key].name;
-                this.text_a(byId("fields_container"), div_text, name_ + "_data");
+            if (key != "preview") {
+                name_ = that.controller.getFieldName(key);
+                this.text_a(byId("fields_container"), name_, key + "_data");
             }
         }
     }

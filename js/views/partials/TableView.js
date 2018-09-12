@@ -1,9 +1,10 @@
 function TableView(modal, detail) {
     marked = [];
     this.modal;
-    this.detail;
     that = {};
+    //that означает, что функцияи вызываются с изменынным контекстом this 
     that.controller;
+    that.detail;
     var that = {};
     that.table = undefined;
     this.tr1;
@@ -28,15 +29,15 @@ function TableView(modal, detail) {
 
     trSelected = function() {
         id = this.getAttribute("id");
-        if (id != that.lastSelect) {
-            if (that.lastSelect != -1) {
+        if (id != lastSelect) {
+            if (lastSelect != -1) {
                 table = byId("records_table", document);
-                select = byId(that.lastSelect, table);
+                select = byId(lastSelect, table);
                 select.style.background = 'none';
             }
             //обновление, highlight строки
             this.style.background = '#FFFFD5';
-            that.lastSelect = id;
+            lastSelect = id;
         }
         //запись значений во временный объект
         keys = that.controller.getDataKeys();
@@ -56,8 +57,8 @@ function TableView(modal, detail) {
         }
 
         //обновление детального просмотра (если имеется)
-        if (detail != undefined) {
-
+        if (that.detail != undefined) {
+            that.detail.updateDetail(gattr(this, "id"));
         }
     }
 
@@ -116,6 +117,21 @@ function TableView(modal, detail) {
             if (elem[key].type == "image")
                 th_td("td", tr1, undefined, "img", elem[key].value);
         }
+    }
+
+    this.updateRecord = function(record) {
+        //найти запись с заданным id
+        id = record.id.value.toString();
+        //tr = document.querySelector('#records_table #' + id);
+        tr = document.getElementById(id);
+
+        //повторно вставить в то же место документа новую строку
+        tr1 = that.table.insertBefore(document.createElement("tr"), tr);
+        tr1.addEventListener('click', trSelected);
+        this.addRecord(record, tr1);
+
+        //удалить строку
+        tr.remove();
     }
 
     function th_td(table_tag, tr, html, tag, src, type, name, id) {
@@ -228,11 +244,9 @@ function TableView(modal, detail) {
         this.setController();
         that.controller = this.controller;
         this.modal = modal;
-        this.detail = detail;
-        that.lastSelect = this.lastSelect;
+        that.detail = detail;
 
-        modal.table = this;
-        detail.table = this;
+        modal.setTable(this);
 
         this.render();
     };

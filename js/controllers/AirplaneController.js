@@ -31,11 +31,8 @@ function AirplaneController(context, concreteView) {
         return export_data;
     }
 
-    this.addViewRec = function(record) {
-        //оповещение View о новой записи
-        this.view.table.newHighlightTr();
-        record = this.model.read(record.id);
-        this.view.table.addRecord(record, this.view.table.tr1);
+    this.read = function(id) {
+        return this.model.read(id);
     }
 
     this.updateViewRecs = function(recs) {
@@ -55,11 +52,16 @@ function AirplaneController(context, concreteView) {
     }
 
     this.create = function(record) {
-        this.model.create(record);
+        record = this.model.create(record);
+
+        //оповещение View о новой записи
+        this.view.table.newHighlightTr();
+        record = this.model.read(record.id);
+        this.view.table.addRecord(record, this.view.table.tr1);
     }
 
     this.update = function(record) {
-
+        return this.model.update(record);
     }
 
     this.delete = function(record) {

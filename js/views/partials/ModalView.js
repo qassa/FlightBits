@@ -1,7 +1,9 @@
 function ModalView() {
+    this.table;
     var that = {}
     that.controller;
-    this.table;
+    that.table;
+    that.modalNode;
 
     //одновременно может быть отображено только 1 модальное окно
     //функция заполнения элементами редактирования
@@ -10,49 +12,102 @@ function ModalView() {
         keys = that.controller.getDisplayKeys();
 
         //заполнить содержимое модального окна
-        var modalNode = byId("modal_text");
-        modalNode.innerHTML = "";
         if (action == "add") {
-            displayElements(modalNode, keys);
+            displayElements(that.modalNode, keys);
+
+            //вставка кнопки подтверждения
+            create("div", that.modalNode, true).attr("id", "new_line");
+            var save = create("input", that.modalNode, true).attr("type", "button", true).attr("class", "save_button", true).attr("value", "Сохранить");
+            save.addEventListener("click", saveRec);
         }
         if (action == "edit") {
-            displayElements(modalNode, keys);
+            displayElements(that.modalNode, keys);
             //заполнение модели данными из TablePartialView
             //dataToElements(modalNode);
+            editRec(lastSelect);
+
+            create("div", that.modalNode, true).attr("id", "new_line");
+            var save = create("input", that.modalNode, true).attr("type", "button", true).attr("class", "save_button", true).attr("value", "Сохранить");
+            save.addEventListener("click", editSubmit);
         }
         if (action == "remove") {
             //вывод окна подтверждения
-            confirmRemove(modalNode);
+            confirmRemove(that.modalNode);
         }
 
         //навесить обработчик нажатия на закрытие окна 1 раз
         modalClose = byId("close_modal");
         modalClose.addEventListener('click', function() {
-            (byId("modal_text")).style.display = "none";
+            that.modalNode.style.display = "none";
             (byId("fon")).style.display = "none";
+            //удалить содержимое
+            while (that.modalNode.firstChild) {
+                that.modalNode.removeChild(that.modalNode.firstChild);
+            }
         });
 
         //отобразить окно
-        byId("modal_text").style.display = "block";
+        that.modalNode.style.display = "block";
         byId("fon").style.display = "block";
 
         modalCoords();
     }
 
-    function saveRec() {
-        modal = byId("modal_text");
-        record = {};
+    editRec = function(id) {
+        if (id != -1) {
+            rec = that.controller.read(id);
 
-        var elems = modal.getElementsByTagName("INPUT");
+            keys = that.controller.getDisplayKeys();
+            for (var key in keys) {
+                for (var field of that.modalNode.childNodes) {
+                    if (field.childNodes.length > 0)
+                        for (var input of field.childNodes)
+                            if (input.tagName == "INPUT" && input.type == "text") {
+                                name = gattr(input, "name");
+                                name = name.substring(0, name.indexOf("_edit"));
+                                if (name != "null")
+                                    if (name == key)
+                                        input.setAttribute("value", rec[key].value);
+                            }
+                }
+            }
+        }
+    }
+
+    extractData = function() {
+        var elems = that.modalNode.getElementsByTagName("INPUT");
         max = elems.length;
         for (i = 0; i < max; i++) {
             elem = elems[i];
+            if (elem.getAttribute("type") == "text")
             //убрать edit в имени элемента
-            name = elem.getAttribute("name");
+                name = elem.getAttribute("name");
             begin = name.indexOf("_edit");
             name = name.substring(0, name.length - (name.length - begin));
             record[name] = elem.value;
         }
+    }
+
+    editSubmit = function() {
+        record = {};
+
+        extractData();
+        record["id"] = lastSelect;
+
+        record = that.controller.update(record);
+        //обновить запись в таблице
+        that.table.updateRecord(record);
+    }
+
+    this.setTable = function(obj) {
+        this.table = obj;
+        that.table = obj;
+    }
+
+    function saveRec() {
+        record = {};
+
+        extractData();
         that.controller.create(record);
     }
 
@@ -82,11 +137,6 @@ function ModalView() {
                 create("div", modalNode, true).attr("id", "new_line");
             }
         }
-        //вставка кнопки подтверждения
-        create("div", modalNode, true).attr("id", "new_line");
-
-        var save = create("input", modalNode, true).attr("type", "button", true).attr("class", "save_button", true).attr("value", "Сохранить");
-        save.addEventListener("click", saveRec);
     }
 
     function renderCloseButton(modalNode) {
@@ -102,18 +152,17 @@ function ModalView() {
     //перерасчет координат левого верхнего угла для блока modal_text
     function modalCoords() {
         //найти блок с данными, определить его ширину
-        modalBlock = byId("modal_text");
-        modalWidth = modalBlock.clientWidth;
-        modalHeight = modalBlock.clientHeight;
+        modalWidth = that.modalNode.clientWidth;
+        modalHeight = that.modalNode.clientHeight;
         //взять ширину доступную для отбражения в окне браузера
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
 
         //определить координаты левой верхней точки
-        modalBlock.style.left = (windowWidth / 2) - (modalWidth / 2);
-        modalBlock.style.top = (windowHeight / 2) - (modalHeight / 2);
+        that.modalNode.style.left = (windowWidth / 2) - (modalWidth / 2);
+        that.modalNode.style.top = (windowHeight / 2) - (modalHeight / 2);
 
-        modalWidth = modalBlock.clientWidth;
+        modalWidth = that.modalNode.clientWidth;
 
         //установить положение для элемента close_modal
         modalClose = byId("close_modal");
@@ -128,7 +177,6 @@ function ModalView() {
 
     function modalBackground() {
         //modal_text добавляется только при появлении модального окна, нет необходимости изменять style.display
-        //document.getElementById("modal_text").style.display = "none";
         byId("fon").style.display = "none";
     }
 
@@ -141,6 +189,7 @@ function ModalView() {
         modalBackground();
         this.setController();
         that.controller = this.controller;
+        that.modalNode = byId("modal_text");
 
         render();
     }
