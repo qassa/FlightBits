@@ -7,10 +7,17 @@ function NavigationView() {
         var container = byId("views_container");
         for (var element in links) {
             view_slice = create("div", container, true).attr("class", "view_slice");
-            create("a", view_slice, true).inner(element);
+            nav_node = create("a", view_slice, true).inner(element);
+            nav_node.addEventListener("click", changeHeader);
             create("div", container, true).attr("id", "view_space");
         }
     };
+
+    changeHeader = function() {
+        header = byId("screen_header");
+        header.innerText = this.innerText;
+        appNavigator.navigate(header.innerText);
+    }
 
     constructor = function() {
         View.call(this);

@@ -54,11 +54,25 @@ function View() {
         return referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
+    this.destroyDOM = function(node) {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
+
+    this.destroyView = function() {
+        //очистить содержимое контейнеров
+        this.destroyDOM(this.byId("modal_text"));
+        this.destroyDOM(this.byId("views_container"));
+        this.destroyDOM(this.byId("table_container"));
+        this.destroyDOM(this.byId("detail_container"));
+    }
+
     this.setController = function() {
         if (this.controller == undefined) {
             //только если контроллер до этого не был установлен (Singleton)
             //определение контекста (сущности, для которой выводятся данные)
-            context = document.getElementById("screen_header");
+            context = byId("screen_header");
             context = context.innerHTML;
 
             //передача контекста (чтобы с помощью фабрики создать нужный экземпляр)

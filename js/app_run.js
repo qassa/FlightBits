@@ -1,5 +1,6 @@
 function ready() {
-    AV = new AirplaneView();
+    new Navigator();
+    appNavigator.navigate("Авиатехника");
 
 }
 //ожидание полной прогрузки DOM

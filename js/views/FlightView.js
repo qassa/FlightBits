@@ -1,4 +1,4 @@
-function AirplaneView() {
+function FlightView() {
     this.render = function() {
 
         //отобразить навигацию по системе

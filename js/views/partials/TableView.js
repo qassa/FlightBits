@@ -20,7 +20,7 @@ function TableView(modal, detail) {
         elem.addEventListener('click', deleteRecs);
     }
 
-    tr = function(table) {
+    var tr = function(table) {
         trr = document.createElement("tr");
         that.table.appendChild(trr);
         return trr;
@@ -32,7 +32,8 @@ function TableView(modal, detail) {
         if (lastSelect != -1) {
             table = byId("records_table", document);
             select = byId(lastSelect, table);
-            select.style.background = 'none';
+            if (select != undefined)
+                select.style.background = 'none';
         }
         //обновление, highlight строки
         this.style.background = '#FFFFD5';
