@@ -17,7 +17,7 @@ function TableView(modal, detail) {
         elem.addEventListener('click', this.modal.fillModal);
 
         var elem = byCl("remove");
-        elem.addEventListener('click', this.modal.deleteRec);
+        elem.addEventListener('click', deleteRecs);
     }
 
     tr = function(table) {
@@ -29,16 +29,15 @@ function TableView(modal, detail) {
 
     trSelected = function() {
         id = this.getAttribute("id");
-        if (id != lastSelect) {
-            if (lastSelect != -1) {
-                table = byId("records_table", document);
-                select = byId(lastSelect, table);
-                select.style.background = 'none';
-            }
-            //обновление, highlight строки
-            this.style.background = '#FFFFD5';
-            lastSelect = id;
+        if (lastSelect != -1) {
+            table = byId("records_table", document);
+            select = byId(lastSelect, table);
+            select.style.background = 'none';
         }
+        //обновление, highlight строки
+        this.style.background = '#FFFFD5';
+        lastSelect = id;
+
         //запись значений во временный объект
         keys = that.controller.getDataKeys();
 
@@ -132,7 +131,21 @@ function TableView(modal, detail) {
 
         //удалить строку
         tr.remove();
+
+        //обновить выделение строки (строка только что редактировалась)
+        simulateClick(tr1);
     }
+
+    var simulateClick = function(elem) {
+        // Create our event (with options)
+        var evt = new MouseEvent('click', {
+            bubbles: false,
+            cancelable: true,
+            view: window
+        });
+        // If cancelled, don't dispatch our event
+        var canceled = !elem.dispatchEvent(evt);
+    };
 
     function th_td(table_tag, tr, html, tag, src, type, name, id) {
         var th = document.createElement(table_tag);
@@ -192,7 +205,7 @@ function TableView(modal, detail) {
             if (child.nodeName == "INPUT" && child.getAttribute("name") == "select_single") {
                 child.checked = checked;
                 if (checked) {
-                    marked.push(node.getAttribute("id"));
+                    marked.push(child.parentNode.parentNode.getAttribute("id"));
                 } else {
                     marked = [];
                 }
@@ -213,14 +226,18 @@ function TableView(modal, detail) {
 
     function deleteRecs() {
         for (var mark of marked) {
-            for (var row of byTg("tr")) {
-                if (row.getAttribute("id") == mark) {
-                    row.remove();
-                    marked.splice(marked.indexOf(mark), 1);
-                    //повторный вызов
-                    deleteRecs();
-                    return;
-                }
+            that.controller.delete(mark);
+        }
+    }
+
+    this.deletedEvent = function(id) {
+        for (var row of byTg("tr")) {
+            if (row.getAttribute("id") == id) {
+                row.remove();
+                marked.splice(marked.indexOf(id), 1);
+                //повторный вызов
+                deleteRecs();
+                return;
             }
         }
     }

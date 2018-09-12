@@ -64,8 +64,9 @@ function AirplaneController(context, concreteView) {
         return this.model.update(record);
     }
 
-    this.delete = function(record) {
-
+    this.delete = function(mark) {
+        if (this.model.delete(mark))
+            this.view.deletedEvent(mark);
     }
 
     this.constructor = function(context, concreteView) {

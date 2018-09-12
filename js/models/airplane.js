@@ -210,8 +210,19 @@ function Airplane(context, concreteController) {
         return this.read(i);
     }
 
-    this.delete = function() {
-
+    this.delete = function(id) {
+        j = 0;
+        data = this.data;
+        flag = false;
+        data.forEach(function(piece) {
+            if (piece["id"] == id) {
+                data.splice(data.indexOf(data[j]), 1);
+                flag = true;
+                //break;
+            }
+            j++;
+        });
+        return flag;
     }
 
     this.fly = function(departurePoint, destinationPoint) {
